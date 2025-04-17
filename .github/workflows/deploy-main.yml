@@ -1,0 +1,13 @@
+name: Deploy Main - React Front End
+
+on:
+  push:
+    branches:
+      - main
+  
+jobs:
+  deploy-github-pages:
+    name: Deploy to Github Pages
+    uses: Peralta-CashFlow/CashFlow-WorkFlows/.github/workflows/deploy-front-end-v1.yml@main
+    permissions:
+      contents: write
