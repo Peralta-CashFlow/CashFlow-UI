@@ -7,6 +7,7 @@
     height: 100vh;
     width: 100%;
     background-color: var(--dark-gray);
+    color: white;
 }
 
 .container {
@@ -15,7 +16,6 @@
     background-color: var(--gray);
     border-radius: .6rem;
     display: flex;
-    color: white;
     box-shadow: 0vh 0vh 2vh 0vh rgba(0,0,0,0.75);
 }
 
@@ -78,4 +78,16 @@ form {
     width: 10vw;
     height: 6.5vh;
     margin-bottom: 5vh;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--gray);
+    width: 40vw;
+    height: 88vh;
+    border-radius: .6rem;
+    box-shadow: 0vh 0vh 2vh 0vh rgba(0,0,0,0.75);
+    color: white;
 }

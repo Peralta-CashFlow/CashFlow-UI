@@ -1,5 +1,4 @@
-import { Button } from "@mui/material";
-import { ButtonProps } from "@mui/material";
+import { ButtonProps, Button } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { SvgIconTypeMap } from "@mui/material/SvgIcon/SvgIcon";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -16,12 +15,14 @@ interface BaseButtonProps {
     fontSize?: string;
     fontWeight?: string;
     spinnerSize?: number;
+    onClick?: () => void;
 }
 
 const BaseButton: React.FC<BaseButtonProps> = ({
     text, variant = 'contained', icon: Icon,
     backGroundColor, loading, color = 'white',
-    className, fontSize, fontWeight, spinnerSize
+    className, fontSize, fontWeight, spinnerSize,
+    onClick
 }) => {
     return (
         <div className={className}
@@ -35,6 +36,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
             <Button
                 variant={variant}
                 endIcon={Icon && !loading ? <Icon /> : null}
+                onClick={onClick}
                 sx={{
                     fontSize: fontSize,
                     fontWeight: fontWeight,
