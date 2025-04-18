@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/CashFlow-UI/static/css/main.84173d5c.css",
-    "main.js": "/CashFlow-UI/static/js/main.40a8f601.js",
+    "main.js": "/CashFlow-UI/static/js/main.5d226542.js",
     "static/media/loginImage.png": "/CashFlow-UI/static/media/loginImage.f0242d139ecffb9c84fc.png",
     "static/media/logo.png": "/CashFlow-UI/static/media/logo.e8f9e48a2f452ff88125.png",
     "index.html": "/CashFlow-UI/index.html",
     "main.84173d5c.css.map": "/CashFlow-UI/static/css/main.84173d5c.css.map",
-    "main.40a8f601.js.map": "/CashFlow-UI/static/js/main.40a8f601.js.map"
+    "main.5d226542.js.map": "/CashFlow-UI/static/js/main.5d226542.js.map"
   },
   "entrypoints": [
     "static/css/main.84173d5c.css",
-    "static/js/main.40a8f601.js"
+    "static/js/main.5d226542.js"
   ]
 }
