@@ -1,7 +1,7 @@
 {
   "name": "cashflow-ui",
   "version": "0.0.1",
-  "homepage": "https://https://peralta-cashflow.github.io/CashFlow-UI/",
+  "homepage": "https://peralta-cashflow.github.io/CashFlow-UI/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
