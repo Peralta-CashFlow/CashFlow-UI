@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "//peralta-cashflow.github.io/CashFlow-UI/static/css/main.84173d5c.css",
-    "main.js": "//peralta-cashflow.github.io/CashFlow-UI/static/js/main.7870ac65.js",
-    "static/media/loginImage.png": "//peralta-cashflow.github.io/CashFlow-UI/static/media/loginImage.f0242d139ecffb9c84fc.png",
-    "static/media/logo.png": "//peralta-cashflow.github.io/CashFlow-UI/static/media/logo.e8f9e48a2f452ff88125.png",
-    "index.html": "//peralta-cashflow.github.io/CashFlow-UI/index.html",
-    "main.84173d5c.css.map": "//peralta-cashflow.github.io/CashFlow-UI/static/css/main.84173d5c.css.map",
-    "main.7870ac65.js.map": "//peralta-cashflow.github.io/CashFlow-UI/static/js/main.7870ac65.js.map"
+    "main.css": "/CashFlow-UI/static/css/main.84173d5c.css",
+    "main.js": "/CashFlow-UI/static/js/main.40a8f601.js",
+    "static/media/loginImage.png": "/CashFlow-UI/static/media/loginImage.f0242d139ecffb9c84fc.png",
+    "static/media/logo.png": "/CashFlow-UI/static/media/logo.e8f9e48a2f452ff88125.png",
+    "index.html": "/CashFlow-UI/index.html",
+    "main.84173d5c.css.map": "/CashFlow-UI/static/css/main.84173d5c.css.map",
+    "main.40a8f601.js.map": "/CashFlow-UI/static/js/main.40a8f601.js.map"
   },
   "entrypoints": [
     "static/css/main.84173d5c.css",
-    "static/js/main.7870ac65.js"
+    "static/js/main.40a8f601.js"
   ]
 }
