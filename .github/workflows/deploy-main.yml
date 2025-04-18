@@ -16,6 +16,7 @@ jobs:
 
   deploy-github-pages:
     name: Deploy to Github Pages
+    needs: request-approval
     uses: Peralta-CashFlow/CashFlow-WorkFlows/.github/workflows/deploy-front-end-v1.yml@main
     permissions:
       contents: write
