@@ -1,0 +1,21 @@
+name: Deploy Main - React Front End
+
+on:
+  push:
+    branches:
+      - main
+  
+jobs:
+  request-approval:
+    name: Deploy Approval
+    environment: GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Approving
+        run: echo "Deploy approved, starting process.."
+
+  deploy-github-pages:
+    name: Deploy to Github Pages
+    uses: Peralta-CashFlow/CashFlow-WorkFlows/.github/workflows/deploy-front-end-v1.yml@main
+    permissions:
+      contents: write
