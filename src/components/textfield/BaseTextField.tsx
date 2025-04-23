@@ -9,12 +9,18 @@ interface BaseTextFieldProps {
     className?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
     fontSize?: string;
+    fieldName?: string;
+    onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+    error?: boolean;
+    helperText?: string | boolean;
+    value?: string | number;
 }
 
 const BaseTextField: React.FC<BaseTextFieldProps> = ({
     label, color = 'white', variant = 'outlined',
     required, type = 'text', className, onChange,
-    fontSize
+    fontSize, fieldName, onBlur, error = false, 
+    helperText, value
 }) => {
     return (
         <TextField
@@ -24,6 +30,11 @@ const BaseTextField: React.FC<BaseTextFieldProps> = ({
             type={type}
             className={className}
             onChange={onChange}
+            name={fieldName}
+            id={fieldName}
+            onBlur={onBlur}
+            error={error}
+            value={value}
             sx={{
                 input: { color: color, fontSize: fontSize },
                 label: { color: color },

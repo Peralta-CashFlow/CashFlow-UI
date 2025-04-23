@@ -16,13 +16,14 @@ interface BaseButtonProps {
     fontWeight?: string;
     spinnerSize?: number;
     onClick?: () => void;
+    type?: 'button' | 'submit' | 'reset';
 }
 
 const BaseButton: React.FC<BaseButtonProps> = ({
     text, variant = 'contained', icon: Icon,
     backGroundColor, loading, color = 'white',
     className, fontSize, fontWeight, spinnerSize,
-    onClick
+    onClick, type
 }) => {
     return (
         <div className={className}
@@ -37,6 +38,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
                 variant={variant}
                 endIcon={Icon && !loading ? <Icon /> : null}
                 onClick={onClick}
+                type={type}
                 sx={{
                     fontSize: fontSize,
                     fontWeight: fontWeight,
