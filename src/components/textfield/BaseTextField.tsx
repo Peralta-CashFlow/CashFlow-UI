@@ -1,4 +1,9 @@
 import TextField, { TextFieldVariants } from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useState } from 'react';
 
 interface BaseTextFieldProps {
     label: string;
@@ -19,15 +24,22 @@ interface BaseTextFieldProps {
 const BaseTextField: React.FC<BaseTextFieldProps> = ({
     label, color = 'white', variant = 'outlined',
     required, type = 'text', className, onChange,
-    fontSize, fieldName, onBlur, error = false, 
+    fontSize, fieldName, onBlur, error = false,
     helperText, value
 }) => {
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const preventDefault = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    }
+
     return (
         <TextField
             label={label}
             variant={variant}
             required={required}
-            type={type}
+            type={type === 'password' && showPassword ? 'text' : type}
             className={className}
             onChange={onChange}
             name={fieldName}
@@ -53,6 +65,22 @@ const BaseTextField: React.FC<BaseTextFieldProps> = ({
                         },
                     },
                 },
+                input: {
+                    endAdornment: type === 'password' && (
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label={showPassword ? 'hide the password' : 'display the password'}
+                                onClick={() => setShowPassword(!showPassword)}
+                                onMouseDown={preventDefault}
+                                onMouseUp={preventDefault}
+                                edge="end"
+                                sx={{ color: color }}
+                            >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                        </InputAdornment>
+                    )
+                }
             }}
         />
     );
