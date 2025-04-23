@@ -16,10 +16,15 @@ const Register: React.FC<RegisterProps> = ({ openModal, setOpenModal }) => {
 
     const registerFormik = useRegisterFormik();
 
+    const handleCloseModal = () => {
+        setOpenModal(false);
+        registerFormik.resetForm();
+    }
+
     return (
         <Modal
             open={openModal}
-            onClose={() => setOpenModal(false)}
+            onClose={handleCloseModal}
             sx={{
                 display: 'flex',
                 alignItems: 'center',

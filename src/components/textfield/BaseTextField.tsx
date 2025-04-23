@@ -4,6 +4,8 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import Tooltip from '@mui/material/Tooltip';
 
 interface BaseTextFieldProps {
     label: string;
@@ -35,54 +37,72 @@ const BaseTextField: React.FC<BaseTextFieldProps> = ({
     }
 
     return (
-        <TextField
-            label={label}
-            variant={variant}
-            required={required}
-            type={type === 'password' && showPassword ? 'text' : type}
-            className={className}
-            onChange={onChange}
-            name={fieldName}
-            id={fieldName}
-            onBlur={onBlur}
-            error={error}
-            value={value}
-            sx={{
-                input: { color: color, fontSize: fontSize },
-                label: { color: color },
-                '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: color },
-                    '&:hover fieldset': { borderColor: color },
-                    '&.Mui-focused fieldset': { borderColor: color },
-                },
-            }}
-            slotProps={{
-                inputLabel: {
-                    sx: {
-                        color: color,
-                        '&.Mui-focused': {
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <TextField
+                label={label}
+                variant={variant}
+                required={required}
+                type={type === 'password' && showPassword ? 'text' : type}
+                className={className}
+                onChange={onChange}
+                name={fieldName}
+                id={fieldName}
+                onBlur={onBlur}
+                error={error}
+                value={value}
+                sx={{
+                    input: { color: color, fontSize: fontSize },
+                    label: { color: color },
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': { borderColor: color },
+                        '&:hover fieldset': { borderColor: color },
+                        '&.Mui-focused fieldset': { borderColor: color },
+                    },
+                }}
+                slotProps={{
+                    inputLabel: {
+                        sx: {
                             color: color,
+                            '&.Mui-focused': {
+                                color: color,
+                            },
                         },
                     },
-                },
-                input: {
-                    endAdornment: type === 'password' && (
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label={showPassword ? 'hide the password' : 'display the password'}
-                                onClick={() => setShowPassword(!showPassword)}
-                                onMouseDown={preventDefault}
-                                onMouseUp={preventDefault}
-                                edge="end"
-                                sx={{ color: color }}
-                            >
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    )
-                }
-            }}
-        />
+                    input: {
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                {type === 'password' &&
+                                    <IconButton
+                                        aria-label={showPassword ? 'hide the password' : 'display the password'}
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        onMouseDown={preventDefault}
+                                        onMouseUp={preventDefault}
+                                        edge="end"
+                                        sx={{ color: color }}
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                }
+                                {error &&
+                                    <Tooltip title={helperText}>
+                                        <ErrorOutlineIcon
+                                            sx={{
+                                                width: '0.8vw',
+                                                marginBottom: '3.5vh',
+                                                marginLeft: '1vw',
+                                                marginRight: '-0.5vw',
+                                                position: 'relative',
+                                                color: 'red',
+                                            }}
+                                        />
+                                    </Tooltip>
+                                }
+                            </InputAdornment>
+                        )
+                    }
+                }}
+            />
+        </div>
     );
 }
 
