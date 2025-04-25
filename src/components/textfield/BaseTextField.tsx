@@ -51,7 +51,15 @@ const BaseTextField: React.FC<BaseTextFieldProps> = ({
                 error={error}
                 value={value}
                 sx={{
-                    input: { color: color, fontSize: fontSize },
+                    input: {
+                        color: color,
+                        fontSize: fontSize,
+                        '&:-webkit-autofill': {
+                            WebkitTextFillColor: color,
+                            boxShadow: '0 0 0 1000px transparent inset',
+                            transition: 'background-color 9999s ease-in-out 0s',
+                        }
+                    },
                     label: { color: color },
                     '& .MuiOutlinedInput-root': {
                         '& fieldset': { borderColor: color },

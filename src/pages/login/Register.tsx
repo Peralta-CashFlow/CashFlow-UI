@@ -6,6 +6,7 @@ import BaseButton from '../../components/button/BaseButton';
 import colors from '../../assets/colors/colors';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useRegisterFormik } from '../../dto/register/RegisterFormData';
+import { useState } from 'react';
 
 interface RegisterProps {
     openModal: boolean;
@@ -14,7 +15,9 @@ interface RegisterProps {
 
 const Register: React.FC<RegisterProps> = ({ openModal, setOpenModal }) => {
 
-    const registerFormik = useRegisterFormik();
+    const [loading, setLoading] = useState(false);
+
+    const registerFormik = useRegisterFormik(setLoading, setOpenModal);
 
     const handleCloseModal = () => {
         setOpenModal(false);
@@ -91,6 +94,8 @@ const Register: React.FC<RegisterProps> = ({ openModal, setOpenModal }) => {
                         fontWeight='bold'
                         icon={PersonAddIcon}
                         type='submit'
+                        loading={loading}
+                        spinnerSize={25}
                     />
                 </form>
             </div>
