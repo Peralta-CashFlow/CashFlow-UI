@@ -1,4 +1,11 @@
 import TextField, { TextFieldVariants } from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useState } from 'react';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import Tooltip from '@mui/material/Tooltip';
 
 interface BaseTextFieldProps {
     label: string;
@@ -9,41 +16,101 @@ interface BaseTextFieldProps {
     className?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
     fontSize?: string;
+    fieldName?: string;
+    onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+    error?: boolean;
+    helperText?: string | boolean;
+    value?: string | number;
 }
 
 const BaseTextField: React.FC<BaseTextFieldProps> = ({
     label, color = 'white', variant = 'outlined',
     required, type = 'text', className, onChange,
-    fontSize
+    fontSize, fieldName, onBlur, error = false,
+    helperText, value
 }) => {
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const preventDefault = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    }
+
     return (
-        <TextField
-            label={label}
-            variant={variant}
-            required={required}
-            type={type}
-            className={className}
-            onChange={onChange}
-            sx={{
-                input: { color: color, fontSize: fontSize },
-                label: { color: color },
-                '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: color },
-                    '&:hover fieldset': { borderColor: color },
-                    '&.Mui-focused fieldset': { borderColor: color },
-                },
-            }}
-            slotProps={{
-                inputLabel: {
-                    sx: {
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <TextField
+                label={label}
+                variant={variant}
+                required={required}
+                type={type === 'password' && showPassword ? 'text' : type}
+                className={className}
+                onChange={onChange}
+                name={fieldName}
+                id={fieldName}
+                onBlur={onBlur}
+                error={error}
+                value={value}
+                sx={{
+                    input: {
                         color: color,
-                        '&.Mui-focused': {
+                        fontSize: fontSize,
+                        '&:-webkit-autofill': {
+                            WebkitTextFillColor: color,
+                            boxShadow: '0 0 0 1000px transparent inset',
+                            transition: 'background-color 9999s ease-in-out 0s',
+                        }
+                    },
+                    label: { color: color },
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': { borderColor: color },
+                        '&:hover fieldset': { borderColor: color },
+                        '&.Mui-focused fieldset': { borderColor: color },
+                    },
+                }}
+                slotProps={{
+                    inputLabel: {
+                        sx: {
                             color: color,
+                            '&.Mui-focused': {
+                                color: color,
+                            },
                         },
                     },
-                },
-            }}
-        />
+                    input: {
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                {type === 'password' &&
+                                    <IconButton
+                                        aria-label={showPassword ? 'hide the password' : 'display the password'}
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        onMouseDown={preventDefault}
+                                        onMouseUp={preventDefault}
+                                        edge="end"
+                                        sx={{ color: color }}
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                }
+                                {error &&
+                                    <Tooltip title={helperText}>
+                                        <ErrorOutlineIcon
+                                            sx={{
+                                                width: '0.8vw',
+                                                marginBottom: '3.5vh',
+                                                marginLeft: '1vw',
+                                                marginRight: '-0.5vw',
+                                                position: 'relative',
+                                                color: 'red',
+                                            }}
+                                        />
+                                    </Tooltip>
+                                }
+                            </InputAdornment>
+                        )
+                    }
+                }}
+            />
+        </div>
     );
 }
 
