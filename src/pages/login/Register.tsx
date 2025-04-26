@@ -5,7 +5,7 @@ import BaseTextField from '../../components/textfield/BaseTextField';
 import BaseButton from '../../components/button/BaseButton';
 import colors from '../../assets/colors/colors';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { useRegisterFormik } from '../../dto/register/RegisterFormData';
+import { useRegisterFormik } from '../../service/user/form/UserRegisterForm';
 import { useState } from 'react';
 
 interface RegisterProps {

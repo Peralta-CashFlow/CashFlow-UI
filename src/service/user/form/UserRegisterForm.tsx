@@ -1,16 +1,9 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import RegisterService from '../../service/register/RegisterService';
-import { useToaster } from '../../components/toaster/ToasterProvider';
-import { AxiosError } from 'axios';
-
-export interface RegisterFormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-}
-
+import UserService from '../../../service/user/UserService';
+import { handleError } from '../../../utils/error/ErrorHandler';
+import { UserRegisterFormData } from '../../../dto/user/UserRegisterFormData';
+import { Severity, Variant, useToaster } from '../../../components/toaster/ToasterProvider';
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
 
 const RegisterFormDataValidation = Yup.object({
@@ -42,7 +35,7 @@ export const useRegisterFormik = (
 
     const toaster = useToaster();
 
-    return useFormik<RegisterFormData>({
+    return useFormik<UserRegisterFormData>({
         initialValues: {
             firstName: '',
             lastName: '',
@@ -52,19 +45,27 @@ export const useRegisterFormik = (
 
         validationSchema: RegisterFormDataValidation,
 
-        onSubmit: async (values: RegisterFormData, formikHelpers) => {
-            setLoading(true);
-            try {
-                await RegisterService.registerUser(values);
-                setOpenModal(false);
-                toaster('User registered successfully', 5000, 'success', 'filled');
-                formikHelpers.resetForm();
-            } catch (error) {
-                if (error instanceof AxiosError) {
-                    toaster(error.response?.data.message, 5000, 'error', 'filled');
-                }
-            }
-            setLoading(false);
+        onSubmit: (values: UserRegisterFormData, formikHelpers) => {
+            handleFormSubmit(values, formikHelpers, setLoading, setOpenModal, toaster);
         }
     })
 }
+
+const handleFormSubmit = async (
+    values: UserRegisterFormData,
+    formikHelpers: any,
+    setLoading: (loading: boolean) => void,
+    setOpenModal: (open: boolean) => void,
+    toaster: (message: string, autoHideDuration?: number, severity?: Severity, variant?: Variant) => void
+) => {
+    setLoading(true);
+    try {
+        await UserService.registerUser(values);
+        setOpenModal(false);
+        toaster('User registered successfully', 5000, 'success', 'filled');
+        formikHelpers.resetForm();
+    } catch (error) {
+        toaster(handleError(error), 5000, 'error', 'filled');
+    }
+    setLoading(false);
+};

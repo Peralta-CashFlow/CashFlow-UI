@@ -4,8 +4,8 @@ import Alert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
 import type { SlideProps } from '@mui/material/Slide';
 
-type Severity = 'success' | 'error' | 'warning' | 'info';
-type Variant = 'standard' | 'filled' | 'outlined';
+export type Severity = 'success' | 'error' | 'warning' | 'info';
+export type Variant = 'standard' | 'filled' | 'outlined';
 
 interface ToastState {
     open: boolean;
