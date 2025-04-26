@@ -22,6 +22,7 @@ export const useLoginFormik = (
 
     const toaster = useToaster();
     const navigate = useNavigate();
+    const user = useUserStore.getState();
 
     const handleFormSubmit = async (
         values: UserLoginFormData,
@@ -35,7 +36,7 @@ export const useLoginFormik = (
                 toaster(response.data.message, 5000, 'error', 'filled');
             } else {
                 formikHelpers.resetForm();
-                useUserStore.getState().newUser(
+                user.newUser(
                     response.data.id,
                     response.data.firstName,
                     response.data.lastName,
@@ -44,6 +45,7 @@ export const useLoginFormik = (
                     response.data.jwtToken
                 );
                 navigate('/home');
+                console.log(user)
             }
         } catch (error) {
             toaster(handleError(error), 5000, 'error', 'filled');
