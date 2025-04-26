@@ -8,10 +8,14 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import colors from '../../assets/colors/colors';
 import { useState } from 'react';
 import Register from './Register';
+import { useLoginFormik } from '../../service/user/form/UserLoginForm';
 
 const Login: React.FC = () => {
 
   const [openModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const loginFormik = useLoginFormik(setLoading);
 
   return (
     <div className={styles.page}>
@@ -20,28 +24,41 @@ const Login: React.FC = () => {
           <img src={logo} alt="CashFlow Logo" className={styles.logo} />
           <h1 className={styles.text}>Welcome</h1>
           <p className={styles.text}>Please login to your account.</p>
-          <form>
+          <form onSubmit={loginFormik.handleSubmit}>
             <BaseTextField
               label='Email'
               required={true}
               type='email'
               className={styles.textField}
+              fieldName='email'
+              value={loginFormik.values.email}
+              onChange={loginFormik.handleChange}
+              onBlur={loginFormik.handleBlur}
+              error={loginFormik.touched.email && Boolean(loginFormik.errors.email)}
+              helperText={loginFormik.touched.email && loginFormik.errors.email}
             />
             <BaseTextField
               label='Password'
               required={true}
               type='password'
               className={styles.textField}
+              fieldName='password'
+              value={loginFormik.values.password}
+              onChange={loginFormik.handleChange}
+              onBlur={loginFormik.handleBlur}
+              error={loginFormik.touched.password && Boolean(loginFormik.errors.password)}
+              helperText={loginFormik.touched.password && loginFormik.errors.password}
             />
             <BaseButton
               className={styles.button}
               text='Login'
               icon={LockIcon}
               backGroundColor={colors.blue}
-              loading={false}
+              loading={loading}
               fontSize='1.2vw'
               fontWeight='bold'
               spinnerSize={25}
+              type='submit'
             />
             <p className={styles.text}>Don't have an account?</p>
             <BaseButton
