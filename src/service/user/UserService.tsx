@@ -1,8 +1,8 @@
 import axios from 'axios';
 import LocalEnvironment from '../../config/LocalEnvironment';
-import { RegisterFormData } from '../../dto/register/RegisterFormData';
+import { RegisterFormData } from '../../dto/user/UserRegisterFormData';
 
-class RegisterService {
+class UserService {
 
     async registerUser(userData: RegisterFormData) {
         const response = await axios.post(
@@ -19,5 +19,5 @@ class RegisterService {
     }
 }
 
-const registerService = new RegisterService();
-export default registerService;
+const userService = new UserService();
+export default userService;

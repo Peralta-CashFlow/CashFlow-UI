@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import RegisterService from '../../service/register/RegisterService';
+import UserService from '../../service/user/UserService';
 import { useToaster } from '../../components/toaster/ToasterProvider';
 import { AxiosError } from 'axios';
 
@@ -55,13 +55,13 @@ export const useRegisterFormik = (
         onSubmit: async (values: RegisterFormData, formikHelpers) => {
             setLoading(true);
             try {
-                await RegisterService.registerUser(values);
+                await UserService.registerUser(values);
                 setOpenModal(false);
                 toaster('User registered successfully', 5000, 'success', 'filled');
                 formikHelpers.resetForm();
             } catch (error) {
                 if (error instanceof AxiosError) {
-                    toaster(error.response?.data.message, 5000, 'error', 'filled');
+                    toaster(error.response? error.response.data.message : 'Server Error', 5000, 'error', 'filled');
                 }
             }
             setLoading(false);
