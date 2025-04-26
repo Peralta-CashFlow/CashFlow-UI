@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import UserService from '../../service/user/UserService';
 import { useToaster } from '../../components/toaster/ToasterProvider';
-import { AxiosError } from 'axios';
+import { handleError } from '../../utils/error/ErrorHandler';
 
 export interface RegisterFormData {
     firstName: string;
@@ -60,9 +60,7 @@ export const useRegisterFormik = (
                 toaster('User registered successfully', 5000, 'success', 'filled');
                 formikHelpers.resetForm();
             } catch (error) {
-                if (error instanceof AxiosError) {
-                    toaster(error.response? error.response.data.message : 'Server Error', 5000, 'error', 'filled');
-                }
+                toaster(handleError(error), 5000, 'error', 'filled');
             }
             setLoading(false);
         }
