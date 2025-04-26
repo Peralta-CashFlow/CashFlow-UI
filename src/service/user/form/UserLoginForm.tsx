@@ -45,7 +45,6 @@ export const useLoginFormik = (
                     response.data.jwtToken
                 );
                 navigate('/home');
-                console.log(user)
             }
         } catch (error) {
             toaster(handleError(error), 5000, 'error', 'filled');
