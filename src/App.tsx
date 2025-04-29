@@ -13,7 +13,7 @@ function App() {
   return (
     <ToasterProvider>
       <div>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
           <Routes>
             <Route path='/' element={<Login />} />
             <Route path='/home' element={userIsLoggedIn() ? <Home /> : <Navigate to ='/' />} />

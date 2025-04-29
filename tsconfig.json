@@ -23,5 +23,5 @@
   },
   "include": [
     "src"
-  ]
+, "test/src/assets", "test/src/config", "test/src/components", "test/src/dto", "test/src/pages", "test/src/service/form", "test/src/stores/user/UserStore.tsx", "test/src/utils/error/ErrorHandler.tsx"  ]
 }
