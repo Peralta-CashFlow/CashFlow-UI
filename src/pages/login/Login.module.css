@@ -9,8 +9,8 @@
 }
 
 .container {
-    width: 150vh;
-    height: 90vh;
+    width: 160vh;
+    height: 95vh;
     background-color: var(--gray);
     border-radius: .6rem;
     display: flex;
@@ -88,4 +88,22 @@ form {
     border-radius: .6rem;
     box-shadow: 0vh 0vh 2vh 0vh rgba(0,0,0,0.75);
     color: white;
+}
+
+.selectedLanguage {
+    width: 2vw !important;
+    height: 2vw !important;
+}
+
+.language {
+    width: 2vw !important;
+    height: 2vw !important;
+    cursor: pointer;
+    filter: grayscale(100%);
+}
+
+@media (max-width: 1400px) {
+    .logo {
+        margin-top: 1vh;
+    }
 }

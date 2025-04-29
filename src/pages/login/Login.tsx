@@ -9,13 +9,21 @@ import colors from '../../assets/colors/colors';
 import { useState } from 'react';
 import Register from './Register';
 import { useLoginFormik } from '../../service/user/form/UserLoginForm';
+import english from '../../assets/images/english.png';
+import portuguese from '../../assets/images/portuguese.png';
+import { Stack, Avatar, Tooltip } from '@mui/material';
 
 const Login: React.FC = () => {
 
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const loginFormik = useLoginFormik(setLoading);
+
+  const handleLanguageChange = (language: string) => {
+    setSelectedLanguage(language);
+  };
 
   return (
     <div className={styles.page}>
@@ -71,6 +79,22 @@ const Login: React.FC = () => {
               onClick={() => setOpenModal(true)}
             />
           </form>
+          <Stack direction="row" spacing={2} >
+            <Tooltip title="English" placement="top" arrow>
+              <Avatar alt="English"
+                src={english}
+                className={selectedLanguage === 'en' ? styles.selectedLanguage : styles.language}
+                onClick={() => handleLanguageChange('en')}
+              />
+            </Tooltip>
+            <Tooltip title="Portuguese" placement="top" arrow>
+              <Avatar alt="Portuguese"
+                src={portuguese}
+                className={selectedLanguage === 'pt' ? styles.selectedLanguage : styles.language}
+                onClick={() => handleLanguageChange('pt')}
+              />
+            </Tooltip>
+          </Stack>
         </div>
         <div className={styles.rightPane}>
           <img src={loginImage} alt="Someone making your finances" className={styles.loginImage} />
