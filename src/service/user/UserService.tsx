@@ -7,14 +7,14 @@ class UserService {
 
     authUserUrl = LocalEnvironment.API_AUTH_URL + '/user'
 
-    async registerUser(userData: UserRegisterFormData) {
+    async registerUser(userData: UserRegisterFormData, language: string) {
         const response = await axios.post(
             this.authUserUrl + '/register',
             JSON.stringify(userData),
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept-Language': 'en-US',
+                    'Accept-Language': language,
                 }
             }
         )
