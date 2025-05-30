@@ -1,3 +1,13 @@
 {
-    "welcome": "Bem-Vindo"
+    "welcome": "Bem-Vindo",
+    "please-login": "Por favor realize o login.",
+    "password": "Senha",
+    "login": "ENTRAR",
+    "dont-have-account": "Não tem uma conta?",
+    "signup": "REGISTRO",
+    "english": "Inglês",
+    "portuguese": "Português",
+    "email-not-empty": "Email não deve estar vazio",
+    "email-not-valid": "Email não é válido",
+    "password-not-empty": "Senha não deve estar vazia"
 }

@@ -21,14 +21,14 @@ class UserService {
         return response;
     }
 
-    async loginUser(userData: UserLoginFormData) {
+    async loginUser(userData: UserLoginFormData, language: string) {
         const response = await axios.get(
             this.authUserUrl + '/login?' +
             'email=' + userData.email + '&' +
             'password=' + userData.password,
             {
                 headers: {
-                    'Accept-Language': 'en-US',
+                    'Accept-Language': language,
                 },
                 validateStatus: (status) => {
                     return status === 200 || status === 401;

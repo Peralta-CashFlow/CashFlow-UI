@@ -12,6 +12,8 @@ import { useLoginFormik } from '../../service/user/form/UserLoginForm';
 import english from '../../assets/images/english.png';
 import portuguese from '../../assets/images/portuguese.png';
 import { Stack, Avatar, Tooltip } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { useInternationalizationStore } from '../../stores/internationalization/InternationalizationStore';
 
 const Login: React.FC = () => {
 
@@ -19,10 +21,15 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('en');
 
+  const { t } = useTranslation();
+  const internationalization = useInternationalizationStore();
   const loginFormik = useLoginFormik(setLoading);
 
   const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
+    internationalization.setLanguage(language);
+    loginFormik.setErrors({});
+    loginFormik.setTouched({});
   };
 
   return (
@@ -30,8 +37,8 @@ const Login: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.leftPane}>
           <img src={logo} alt="CashFlow Logo" className={styles.logo} />
-          <h1 className={styles.text}>Welcome</h1>
-          <p className={styles.text}>Please login to your account.</p>
+          <h1 className={styles.text}>{t('welcome')}</h1>
+          <p className={styles.text}>{t('please-login')}</p>
           <form onSubmit={loginFormik.handleSubmit}>
             <BaseTextField
               label='Email'
@@ -46,7 +53,7 @@ const Login: React.FC = () => {
               helperText={loginFormik.touched.email && loginFormik.errors.email}
             />
             <BaseTextField
-              label='Password'
+              label={t('password')}
               required={true}
               type='password'
               className={styles.textField}
@@ -59,7 +66,7 @@ const Login: React.FC = () => {
             />
             <BaseButton
               className={styles.button}
-              text='Login'
+              text={t('login')}
               icon={LockIcon}
               backGroundColor={colors.blue}
               loading={loading}
@@ -68,10 +75,10 @@ const Login: React.FC = () => {
               spinnerSize={25}
               type='submit'
             />
-            <p className={styles.text}>Don't have an account?</p>
+            <p className={styles.text}>{t('dont-have-account')}</p>
             <BaseButton
               className={styles.button}
-              text='Signup'
+              text={t('signup')}
               backGroundColor={colors.blue}
               fontSize='1.2vw'
               fontWeight='bold'
@@ -80,14 +87,14 @@ const Login: React.FC = () => {
             />
           </form>
           <Stack direction="row" spacing={2} >
-            <Tooltip title="English" placement="top" arrow>
+            <Tooltip title={t('english')} placement="top" arrow>
               <Avatar alt="English"
                 src={english}
                 className={selectedLanguage === 'en' ? styles.selectedLanguage : styles.language}
                 onClick={() => handleLanguageChange('en')}
               />
             </Tooltip>
-            <Tooltip title="Portuguese" placement="top" arrow>
+            <Tooltip title={t('portuguese')} placement="top" arrow>
               <Avatar alt="Portuguese"
                 src={portuguese}
                 className={selectedLanguage === 'pt' ? styles.selectedLanguage : styles.language}
