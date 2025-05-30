@@ -7,28 +7,28 @@ class UserService {
 
     authUserUrl = LocalEnvironment.API_AUTH_URL + '/user'
 
-    async registerUser(userData: UserRegisterFormData) {
+    async registerUser(userData: UserRegisterFormData, language: string) {
         const response = await axios.post(
             this.authUserUrl + '/register',
             JSON.stringify(userData),
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept-Language': 'en-US',
+                    'Accept-Language': language,
                 }
             }
         )
         return response;
     }
 
-    async loginUser(userData: UserLoginFormData) {
+    async loginUser(userData: UserLoginFormData, language: string) {
         const response = await axios.get(
             this.authUserUrl + '/login?' +
             'email=' + userData.email + '&' +
             'password=' + userData.password,
             {
                 headers: {
-                    'Accept-Language': 'en-US',
+                    'Accept-Language': language,
                 },
                 validateStatus: (status) => {
                     return status === 200 || status === 401;

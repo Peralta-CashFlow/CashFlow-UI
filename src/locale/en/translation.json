@@ -1,0 +1,23 @@
+{
+    "welcome": "Welcome",
+    "please-login": "Please login to your account.",
+    "password": "Password",
+    "login": "LOGIN",
+    "dont-have-account": "Don't have an account?",
+    "signup": "SIGNUP",
+    "english": "English",
+    "portuguese": "Portuguese",
+    "email-not-empty": "Email must not be empty",
+    "email-not-valid": "Email is not valid",
+    "password-not-empty": "Password must not be empty",
+    "setup": "Let's get you set up! Please fill in your details to register.",
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "register": "Register",
+    "first-name-not-empty": "First name must not be empty",
+    "first-name-max-char": "First name must have at most 30 characters",
+    "last-name-not-empty": "Last name must not be empty",
+    "last-name-max-char": "Last name must have at most 30 characters",
+    "email-max-char": "Email must have at most 100 characters",
+    "password-regex": "Password must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"
+}

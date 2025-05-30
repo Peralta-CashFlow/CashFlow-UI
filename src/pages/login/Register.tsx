@@ -6,6 +6,7 @@ import BaseButton from '../../components/button/BaseButton';
 import colors from '../../assets/colors/colors';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useRegisterFormik } from '../../service/user/form/UserRegisterForm';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 
 interface RegisterProps {
@@ -14,6 +15,8 @@ interface RegisterProps {
 }
 
 const Register: React.FC<RegisterProps> = ({ openModal, setOpenModal }) => {
+
+    const { t } = useTranslation();
 
     const [loading, setLoading] = useState(false);
 
@@ -36,10 +39,10 @@ const Register: React.FC<RegisterProps> = ({ openModal, setOpenModal }) => {
         >
             <div className={styles.modal}>
                 <img src={logo} alt="CashFlow Logo" className={styles.logo} />
-                <p className={styles.text}>Let's get you set up! Please fill in your details to register.</p>
+                <p className={styles.text}>{t('setup')}</p>
                 <form onSubmit={registerFormik.handleSubmit}>
                     <BaseTextField
-                        label='First Name'
+                        label={t('first-name')}
                         required={true}
                         type='text'
                         className={styles.textField}
@@ -51,7 +54,7 @@ const Register: React.FC<RegisterProps> = ({ openModal, setOpenModal }) => {
                         helperText={registerFormik.touched.firstName && registerFormik.errors.firstName}
                     />
                     <BaseTextField
-                        label='Last Name'
+                        label={t('last-name')}
                         required={true}
                         type='text'
                         className={styles.textField}
@@ -75,7 +78,7 @@ const Register: React.FC<RegisterProps> = ({ openModal, setOpenModal }) => {
                         helperText={registerFormik.touched.email && registerFormik.errors.email}
                     />
                     <BaseTextField
-                        label='Password'
+                        label={t('password')}
                         required={true}
                         type='password'
                         className={styles.textField}
@@ -88,7 +91,7 @@ const Register: React.FC<RegisterProps> = ({ openModal, setOpenModal }) => {
                     />
                     <BaseButton
                         className={styles.button}
-                        text='Register'
+                        text={t('register')}
                         backGroundColor={colors.blue}
                         fontSize='1.2vw'
                         fontWeight='bold'

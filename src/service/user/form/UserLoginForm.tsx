@@ -6,19 +6,24 @@ import { handleError } from '../../../utils/error/ErrorHandler';
 import { UserLoginFormData } from '../../../dto/user/UserLoginFormData';
 import { useUserStore } from '../../../stores/user/UserStore';
 import { useNavigate } from 'react-router-dom';
-
-const UserLoginFormDataValidation = Yup.object({
-    email: Yup.string()
-        .required('Email must not be empty')
-        .email('Email is not valid'),
-
-    password: Yup.string()
-        .required('Password must not be empty')
-})
+import { useTranslation } from 'react-i18next';
+import { useInternationalizationStore } from '../../../stores/internationalization/InternationalizationStore';
 
 export const useLoginFormik = (
     setLoading: (loading: boolean) => void,
 ) => {
+
+    const { t } = useTranslation();
+    const internationalization = useInternationalizationStore();
+
+    const UserLoginFormDataValidation = Yup.object({
+        email: Yup.string()
+            .required(t('email-not-empty'))
+            .email(t('email-not-valid')),
+
+        password: Yup.string()
+            .required(t('password-not-empty'))
+    })
 
     const toaster = useToaster();
     const navigate = useNavigate();
@@ -30,8 +35,8 @@ export const useLoginFormik = (
     ) => {
         setLoading(true);
         try {
-            const response = await UserService.loginUser(values)
-    
+            const response = await UserService.loginUser(values, internationalization.language);
+
             if (response.status === 401) {
                 toaster(response.data.message, 5000, 'error', 'filled');
             } else {

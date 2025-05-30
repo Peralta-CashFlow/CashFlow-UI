@@ -1,0 +1,23 @@
+{
+    "welcome": "Bem-Vindo",
+    "please-login": "Por favor realize o login.",
+    "password": "Senha",
+    "login": "ENTRAR",
+    "dont-have-account": "Não tem uma conta?",
+    "signup": "REGISTRO",
+    "english": "Inglês",
+    "portuguese": "Português",
+    "email-not-empty": "Email não deve estar vazio",
+    "email-not-valid": "Email não é válido",
+    "password-not-empty": "Senha não deve estar vazia",
+    "setup": "Vamos começar! Por favor preencha os campos para se registrar.",
+    "first-name": "Nome",
+    "last-name": "Sobrenome",
+    "register": "Registre",
+    "first-name-not-empty": "Nome não pode estar vazio",
+    "first-name-max-char": "Nome deve ter no máximo 30 caracteres",
+    "last-name-not-empty": "Sobrenome não pode estar vazio",
+    "last-name-max-char": "Sobrenome deve ter no máximo 30 caracteres",
+    "email-max-char": "E-mail deve ter no máximo 100 caracteres",
+    "password-regex": "Senha deve ter pelo menos 8 caracteres, 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caractere especial"
+}
