@@ -1,0 +1,13 @@
+.box {
+    width: 100%;
+}
+
+.headerContainer {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 25px;
+    display: flex;
+    font-size: 150%;
+    justify-content: center;
+}

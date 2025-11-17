@@ -24,6 +24,9 @@
     "settings": "Settings",
     "logout": "Logout",
     "personal-information": "Personal Information",
+    "personal-information-text": "Here you can manage your personal information.",
     "financial-information": "Financial Information",
-    "security": "Security"
+    "security": "Security",
+    "tax-number-char": "Tax number must have 11 characters",
+    "edit-personal-information-success": "Personal information updated successfully."
 }

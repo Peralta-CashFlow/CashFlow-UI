@@ -24,6 +24,9 @@
     "settings": "Configurações",
     "logout": "Sair",
     "personal-information": "Informações Pessoais",
+    "personal-information-text": "Aqui você pode gerenciar suas informações pessoais.",
     "financial-information": "Informações Financeiras",
-    "security": "Segurança"
+    "security": "Segurança",
+    "tax-number-char": "CPF deve ter 11 caracteres",
+    "edit-personal-information-success": "Informações pessoais atualizadas com sucesso."
 }

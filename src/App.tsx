@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 
 import Login from './pages/login/Login';
@@ -17,6 +17,7 @@ function App() {
   const { userIsLoggedIn } = useUserValidator();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const avatarOptions: Record<string, () => void> = {
     [t('settings')]: () => {
@@ -28,6 +29,9 @@ function App() {
     }
   };
 
+  const showAvatar: boolean = userIsLoggedIn() &&
+    location.pathname !== '/profile/settings';
+
   return (
     <ToasterProvider>
       <div>
@@ -37,7 +41,7 @@ function App() {
           right: '20px',
           zIndex: 1000
         }}>
-          {userIsLoggedIn() ? <BaseAvatar
+          {showAvatar ? <BaseAvatar
             image={user.avatar}
             width={55}
             height={55}
