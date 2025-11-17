@@ -48,7 +48,7 @@ function App() {
           /> : null}
         </div>
         <Routes>
-          <Route path='/' element={<Login />} />
+          <Route path='/' element={userIsLoggedIn() ? <Navigate to='/home' /> : <Login />} />
           <Route path='/home' element={userIsLoggedIn() ? <Home /> : <Navigate to='/' />} />
           <Route path='/profile/settings' element={userIsLoggedIn() ? <Profile /> : <Navigate to='/' />} />
         </Routes>
