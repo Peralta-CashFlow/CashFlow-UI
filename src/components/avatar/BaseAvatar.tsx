@@ -9,7 +9,7 @@ interface AvatarProps {
     fallback: string;
     tooltip: string;
     cursor?: string;
-    options?: string[];
+    options?: Record<string, () => void>;
 }
 
 const BaseAvatar: React.FC<AvatarProps> = ({
@@ -27,6 +27,8 @@ const BaseAvatar: React.FC<AvatarProps> = ({
         setAnchorEl(null);
     };
 
+    const hasOptions = options && Object.keys(options).length > 0;
+
     return (
         <Box sx={{ flexGrow: 0 }}>
             <Tooltip title={tooltip}>
@@ -40,7 +42,7 @@ const BaseAvatar: React.FC<AvatarProps> = ({
                         bgcolor: colors.lightBlueGreen,
                         boxShadow: '0 0 15px 2px rgba(95, 95, 95, 0.3)'
                     }}
-                    onClick={options.length > 0 ? handleOpenMenu : undefined}
+                    onClick={hasOptions ? handleOpenMenu : undefined}
                 >
                     {fallback}
                 </Avatar>
@@ -68,10 +70,13 @@ const BaseAvatar: React.FC<AvatarProps> = ({
                     }
                 }}
             >
-                {options.map((option) => (
+                {Object.entries(options).map(([option, action]) => (
                     <MenuItem
                         key={option}
-                        onClick={handleCloseMenu}
+                        onClick={() => {
+                            action();
+                            handleCloseMenu();
+                        }}
                         sx={{
                             backgroundColor: colors.lightGray,
                             '&:hover': {
