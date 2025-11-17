@@ -7,11 +7,12 @@ export type User = {
     email: string;
     roles: string[];
     jwt: string;
+    avatar: string;
 }
 
 type UserStore = {
     user: User;
-    newUser: (id: number, firstName: string, lastName: string, email: string, roles: string[], jwt: string) => void;
+    newUser: (id: number, firstName: string, lastName: string, email: string, roles: string[], jwt: string, avatar: string) => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -21,7 +22,8 @@ export const useUserStore = create<UserStore>((set) => ({
         lastName: '',
         email: '',
         roles: [],
-        jwt: ''
+        jwt: '',
+        avatar: ''
     },
-    newUser: (id, firstName, lastName, email, roles, jwt) => set(() => ({ user: { id, firstName, lastName, email, roles, jwt } }))
+    newUser: (id, firstName, lastName, email, roles, jwt, avatar) => set(() => ({ user: { id, firstName, lastName, email, roles, jwt, avatar } }))
 }));

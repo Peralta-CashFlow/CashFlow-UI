@@ -19,5 +19,8 @@
     "last-name-not-empty": "Sobrenome não pode estar vazio",
     "last-name-max-char": "Sobrenome deve ter no máximo 30 caracteres",
     "email-max-char": "E-mail deve ter no máximo 100 caracteres",
-    "password-regex": "Senha deve ter pelo menos 8 caracteres, 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caractere especial"
+    "password-regex": "Senha deve ter pelo menos 8 caracteres, 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caractere especial",
+    "profile": "Perfil",
+    "settings": "Configurações",
+    "logout": "Sair"
 }
