@@ -22,5 +22,8 @@
     "password-regex": "Password must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character",
     "profile": "Profile",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "personal-information": "Personal Information",
+    "financial-information": "Financial Information",
+    "security": "Security"
 }

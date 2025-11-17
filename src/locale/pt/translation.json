@@ -22,5 +22,8 @@
     "password-regex": "Senha deve ter pelo menos 8 caracteres, 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caractere especial",
     "profile": "Perfil",
     "settings": "Configurações",
-    "logout": "Sair"
+    "logout": "Sair",
+    "personal-information": "Informações Pessoais",
+    "financial-information": "Informações Financeiras",
+    "security": "Segurança"
 }

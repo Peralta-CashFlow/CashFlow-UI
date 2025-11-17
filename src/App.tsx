@@ -1,9 +1,11 @@
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import './App.css';
 
-import ToasterProvider from './components/toaster/ToasterProvider';
 import Login from './pages/login/Login';
 import Home from './pages/home/Home';
+import Profile from './pages/profile/Profile';
+
+import ToasterProvider from './components/toaster/ToasterProvider';
 import { useUserValidator } from './validators/user/UserValidator';
 import { useUserStore } from "./stores/user/UserStore";
 import BaseAvatar from './components/avatar/BaseAvatar';
@@ -48,6 +50,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/home' element={userIsLoggedIn() ? <Home /> : <Navigate to='/' />} />
+          <Route path='/profile/settings' element={userIsLoggedIn() ? <Profile /> : <Navigate to='/' />} />
         </Routes>
       </div>
     </ToasterProvider>
