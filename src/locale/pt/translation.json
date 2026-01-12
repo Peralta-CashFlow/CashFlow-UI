@@ -28,5 +28,12 @@
     "financial-information": "Informações Financeiras",
     "security": "Segurança",
     "tax-number-char": "CPF deve ter 11 caracteres",
-    "edit-personal-information-success": "Informações pessoais atualizadas com sucesso."
+    "edit-personal-information-success": "Informações pessoais atualizadas com sucesso.",
+    "profile-picture": "Foto de Perfil",
+    "tax-number": "CPF",
+    "gender": "Gênero",
+    "female": "Feminino",
+    "male": "Masculino",
+    "birth-day": "Data de Nascimento",
+    "birth-day-invalid": "Formato DD/MM/AAAA"
 }

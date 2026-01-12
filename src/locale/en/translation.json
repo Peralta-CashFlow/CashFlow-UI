@@ -28,5 +28,12 @@
     "financial-information": "Financial Information",
     "security": "Security",
     "tax-number-char": "Tax number must have 11 characters",
-    "edit-personal-information-success": "Personal information updated successfully."
+    "edit-personal-information-success": "Personal information updated successfully.",
+    "profile-picture": "Profile Picture",
+    "tax-number": "Tax Number",
+    "gender": "Gender",
+    "female": "Female",
+    "male": "Male",
+    "birth-day": "Birth Day",
+    "birth-day-invalid": "Format DD/MM/YYYY"
 }

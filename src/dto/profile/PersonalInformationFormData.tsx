@@ -3,6 +3,6 @@ export interface PersonalInformationFormData {
     firstName: string;
     lastName: string;
     gender: string;
-    birthDate: string;
-    taxNumber: string;
+    birthDay: string;
+    taxRegistration: string;
 }

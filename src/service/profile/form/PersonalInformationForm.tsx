@@ -21,9 +21,16 @@ export const usePersonalInformationFormik = (
             .required(t('last-name-not-empty'))
             .max(30, t('last-name-max-char')),
 
-        taxNumber: Yup.string()
+        taxRegistration: Yup.string()
             .max(11, t('tax-number-char'))
-            .min(11, t('tax-number-char'))
+            .min(11, t('tax-number-char')),
+
+        birthDay: Yup.string()
+            .nullable()
+            .test('birthDay-length', t('birth-day-invalid'), (value) => {
+                return value === null || value === undefined || value === '' || value.length === 10;
+            }),
+
     })
 
     const handleFormSubmit = async (
@@ -47,8 +54,8 @@ export const usePersonalInformationFormik = (
             firstName: '',
             lastName: '',
             gender: '',
-            birthDate: '',
-            taxNumber: ''
+            birthDay: '',
+            taxRegistration: ''
         },
 
         validationSchema: PersonalInformationFormDataValidation,
