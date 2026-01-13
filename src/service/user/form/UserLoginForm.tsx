@@ -47,7 +47,8 @@ export const useLoginFormik = (
                     response.data.lastName,
                     response.data.email,
                     response.data.roles,
-                    response.data.jwtToken
+                    response.data.jwtToken,
+                    `data:image/png;base64,${response.data.avatar}`
                 );
                 navigate('/home');
             }

@@ -3,9 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './main.css'
 import App from './App.tsx'
 import './config/Internationalization.js'
+import { BrowserRouter } from 'react-router-dom';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
 )

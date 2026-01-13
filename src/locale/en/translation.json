@@ -19,5 +19,21 @@
     "last-name-not-empty": "Last name must not be empty",
     "last-name-max-char": "Last name must have at most 30 characters",
     "email-max-char": "Email must have at most 100 characters",
-    "password-regex": "Password must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"
+    "password-regex": "Password must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "personal-information": "Personal Information",
+    "personal-information-text": "Here you can manage your personal information.",
+    "financial-information": "Financial Information",
+    "security": "Security",
+    "tax-number-char": "Tax number must have 11 characters",
+    "edit-personal-information-success": "Personal information updated successfully.",
+    "profile-picture": "Profile Picture",
+    "tax-number": "Tax Number",
+    "gender": "Gender",
+    "female": "Female",
+    "male": "Male",
+    "birth-day": "Birth Day",
+    "birth-day-invalid": "Format DD/MM/YYYY"
 }

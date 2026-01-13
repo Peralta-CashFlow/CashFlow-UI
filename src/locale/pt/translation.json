@@ -19,5 +19,21 @@
     "last-name-not-empty": "Sobrenome não pode estar vazio",
     "last-name-max-char": "Sobrenome deve ter no máximo 30 caracteres",
     "email-max-char": "E-mail deve ter no máximo 100 caracteres",
-    "password-regex": "Senha deve ter pelo menos 8 caracteres, 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caractere especial"
+    "password-regex": "Senha deve ter pelo menos 8 caracteres, 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caractere especial",
+    "profile": "Perfil",
+    "settings": "Configurações",
+    "logout": "Sair",
+    "personal-information": "Informações Pessoais",
+    "personal-information-text": "Aqui você pode gerenciar suas informações pessoais.",
+    "financial-information": "Informações Financeiras",
+    "security": "Segurança",
+    "tax-number-char": "CPF deve ter 11 caracteres",
+    "edit-personal-information-success": "Informações pessoais atualizadas com sucesso.",
+    "profile-picture": "Foto de Perfil",
+    "tax-number": "CPF",
+    "gender": "Gênero",
+    "female": "Feminino",
+    "male": "Masculino",
+    "birth-day": "Data de Nascimento",
+    "birth-day-invalid": "Formato DD/MM/AAAA"
 }

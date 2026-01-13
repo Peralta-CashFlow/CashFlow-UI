@@ -21,13 +21,14 @@ interface BaseTextFieldProps {
     error?: boolean;
     helperText?: string | boolean;
     value?: string | number;
+    disabled?: boolean;
 }
 
 const BaseTextField: React.FC<BaseTextFieldProps> = ({
     label, color = 'white', variant = 'outlined',
     required, type = 'text', className, onChange,
     fontSize, fieldName, onBlur, error = false,
-    helperText, value
+    helperText, value, disabled = false
 }) => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -41,7 +42,7 @@ const BaseTextField: React.FC<BaseTextFieldProps> = ({
             <TextField
                 label={label}
                 variant={variant}
-                required={required}
+                required={required && !disabled}
                 type={type === 'password' && showPassword ? 'text' : type}
                 className={className}
                 onChange={onChange}
@@ -50,6 +51,7 @@ const BaseTextField: React.FC<BaseTextFieldProps> = ({
                 onBlur={onBlur}
                 error={error}
                 value={value}
+                disabled={disabled}
                 sx={{
                     input: {
                         color: color,
@@ -65,7 +67,10 @@ const BaseTextField: React.FC<BaseTextFieldProps> = ({
                         '& fieldset': { borderColor: color },
                         '&:hover fieldset': { borderColor: color },
                         '&.Mui-focused fieldset': { borderColor: color },
+                        '&.Mui-disabled fieldset': { borderColor: color, opacity: 1 }
                     },
+                    '& .MuiFormLabel-root.Mui-disabled': { color: color, opacity: 1 },
+                    '& .MuiInputBase-input.Mui-disabled': { WebkitTextFillColor: color, color: color, opacity: 1 }
                 }}
                 slotProps={{
                     inputLabel: {
