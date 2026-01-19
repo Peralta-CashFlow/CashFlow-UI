@@ -79,6 +79,8 @@ const PersonalTab: React.FC = () => {
                             height={120}
                             fallback={user.firstName.charAt(0) + user.lastName.charAt(0)}
                             tooltip={t('profile-picture')}
+                            editing={editing}
+                            onChange={(base64) => editFormik.setFieldValue('avatar', base64)}
                         />
                     </div>
                     <div className={styles.fields}>
