@@ -13,6 +13,9 @@ import BaseTextField from "../../../components/textfield/BaseTextField";
 import EditableAvatar from "../../../components/avatar/EditableAvatar";
 import BaseRadioGroup from "../../../components/radio/BaseRadioGroup";
 import { formatDateToScreen, formatStringInputToDate } from "../../../utils/date/DateHandler";
+import BaseButton from "../../../components/button/BaseButton";
+import colors from "../../../assets/colors/colors";
+import CreateIcon from '@mui/icons-material/Create';
 
 const PersonalTab: React.FC = () => {
 
@@ -48,12 +51,25 @@ const PersonalTab: React.FC = () => {
         <Box className={styles.box}>
             {loading &&
                 <div className={styles.loadingContainer}>
-                    <CircularProgress sx={{ color: 'white' }} size={'5%'}/>
+                    <CircularProgress sx={{ color: 'white' }} size={'5%'} />
                 </div>
             }
             {!loading && <div>
                 <div className={styles.headerContainer}>
                     <p>{t('personal-information-text')}</p>
+                    {!editing &&
+                        <div className={styles.editButton}>
+                            <BaseButton
+                                text={t('edit')}
+                                backGroundColor={colors.blue}
+                                fontSize='60%'
+                                fontWeight='bold'
+                                type="button"
+                                icon={CreateIcon}
+                                onClick={() => setEditing(true)}
+                            />
+                        </div>
+                    }
                 </div>
                 <form onSubmit={editFormik.handleSubmit}>
                     <div className={styles.avatar}>
@@ -65,60 +81,61 @@ const PersonalTab: React.FC = () => {
                             tooltip={t('profile-picture')}
                         />
                     </div>
-                    <div className={styles.fields}></div>
-                    <BaseTextField
-                        label={t('first-name')}
-                        required={true}
-                        fieldName='firstName'
-                        type='text'
-                        value={editFormik.values.firstName}
-                        onBlur={editFormik.handleBlur}
-                        onChange={editFormik.handleChange}
-                        error={editFormik.touched.firstName && Boolean(editFormik.errors.firstName)}
-                        helperText={editFormik.touched.firstName && editFormik.errors.firstName}
-                        disabled={!editing}
-                    />
                     <div className={styles.fields}>
-                        <BaseTextField
-                            label={t('last-name')}
-                            required={true}
-                            fieldName='lastName'
-                            type='text'
-                            value={editFormik.values.lastName}
-                            onBlur={editFormik.handleBlur}
-                            onChange={editFormik.handleChange}
-                            error={editFormik.touched.lastName && Boolean(editFormik.errors.lastName)}
-                            helperText={editFormik.touched.lastName && editFormik.errors.lastName}
-                            disabled={!editing}
-                        />
+                        <div className={styles.fieldRow}>
+                            <BaseTextField
+                                label={t('first-name')}
+                                required={true}
+                                fieldName='firstName'
+                                type='text'
+                                value={editFormik.values.firstName}
+                                onBlur={editFormik.handleBlur}
+                                onChange={editFormik.handleChange}
+                                error={editFormik.touched.firstName && Boolean(editFormik.errors.firstName)}
+                                helperText={editFormik.touched.firstName && editFormik.errors.firstName}
+                                disabled={!editing}
+                            />
+                            <BaseTextField
+                                label={t('last-name')}
+                                required={true}
+                                fieldName='lastName'
+                                type='text'
+                                value={editFormik.values.lastName}
+                                onBlur={editFormik.handleBlur}
+                                onChange={editFormik.handleChange}
+                                error={editFormik.touched.lastName && Boolean(editFormik.errors.lastName)}
+                                helperText={editFormik.touched.lastName && editFormik.errors.lastName}
+                                disabled={!editing}
+                            />
+                        </div>
                     </div>
                     <div className={styles.fields}>
-                        <BaseTextField
-                            label={t('tax-number')}
-                            required={false}
-                            fieldName='taxRegistration'
-                            type='text'
-                            value={editFormik.values.taxRegistration}
-                            onBlur={editFormik.handleBlur}
-                            onChange={editFormik.handleChange}
-                            error={editFormik.touched.taxRegistration && Boolean(editFormik.errors.taxRegistration)}
-                            helperText={editFormik.touched.taxRegistration && editFormik.errors.taxRegistration}
-                            disabled={!editing}
-                        />
-                    </div>
-                    <div className={styles.fields}>
-                        <BaseTextField
-                            label={t('birth-day')}
-                            required={false}
-                            fieldName={'birthDay'}
-                            value={editFormik.values.birthDay}
-                            type='text'
-                            onBlur={editFormik.handleBlur}
-                            error={editFormik.touched.birthDay && Boolean(editFormik.errors.birthDay)}
-                            helperText={editFormik.touched.birthDay && editFormik.errors.birthDay}
-                            onChange={(e) => editFormik.setFieldValue('birthDay', formatStringInputToDate(e.target.value))}
-                            disabled={!editing}
-                        />
+                        <div className={styles.fieldRow}>
+                            <BaseTextField
+                                label={t('tax-number')}
+                                required={false}
+                                fieldName='taxRegistration'
+                                type='text'
+                                value={editFormik.values.taxRegistration}
+                                onBlur={editFormik.handleBlur}
+                                onChange={editFormik.handleChange}
+                                error={editFormik.touched.taxRegistration && Boolean(editFormik.errors.taxRegistration)}
+                                helperText={editFormik.touched.taxRegistration && editFormik.errors.taxRegistration}
+                                disabled={!editing}
+                            />
+                            <BaseTextField
+                                label={t('birth-day')}
+                                required={false}
+                                fieldName={'birthDay'}
+                                value={editFormik.values.birthDay}
+                                type='text'
+                                onBlur={editFormik.handleBlur}
+                                error={editFormik.touched.birthDay && Boolean(editFormik.errors.birthDay)}
+                                helperText={editFormik.touched.birthDay && editFormik.errors.birthDay}
+                                onChange={(e) => editFormik.setFieldValue('birthDay', formatStringInputToDate(e.target.value))}
+                                disabled={!editing}
+                            />
+                        </div>
                     </div>
                     <div className={styles.fields}>
                         <BaseRadioGroup

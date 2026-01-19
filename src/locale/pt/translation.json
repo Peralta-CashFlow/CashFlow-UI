@@ -35,5 +35,6 @@
     "female": "Feminino",
     "male": "Masculino",
     "birth-day": "Data de Nascimento",
-    "birth-day-invalid": "Formato DD/MM/AAAA"
+    "birth-day-invalid": "Formato DD/MM/AAAA",
+    "edit": "Editar"
 }
