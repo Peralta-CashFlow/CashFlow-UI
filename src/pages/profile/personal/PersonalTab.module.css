@@ -55,4 +55,11 @@
         flex-direction: row;
         gap: 10px;
     }
+
+    .buttonRow {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        margin-top: 15px;
+    }
 }

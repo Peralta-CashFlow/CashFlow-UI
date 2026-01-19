@@ -16,6 +16,8 @@ import { formatDateToScreen, formatStringInputToDate } from "../../../utils/date
 import BaseButton from "../../../components/button/BaseButton";
 import colors from "../../../assets/colors/colors";
 import CreateIcon from '@mui/icons-material/Create';
+import CancelIcon from '@mui/icons-material/Cancel';
+import SaveIcon from '@mui/icons-material/Save';
 
 const PersonalTab: React.FC = () => {
 
@@ -29,23 +31,25 @@ const PersonalTab: React.FC = () => {
     const toaster = useToaster();
 
     useEffect(() => {
-        const fetchPersonalInformation = async () => {
-            setLoading(true);
-            try {
-                const personalInformation = await ProfileService.getPersonalInformation(
-                    internationalization.language,
-                    user.jwt,
-                    user.id
-                );
-                await editFormik.setValues(personalInformation.data);
-                editFormik.setFieldValue('birthDay', formatDateToScreen(personalInformation.data.birthDay));
-            } catch (error) {
-                toaster(handleError(error), 5000, 'error', 'filled');
-            }
-            setLoading(false);
-        }
         fetchPersonalInformation();
     }, []);
+
+    const fetchPersonalInformation = async () => {
+        setEditing(false);
+        setLoading(true);
+        try {
+            const personalInformation = await ProfileService.getPersonalInformation(
+                internationalization.language,
+                user.jwt,
+                user.id
+            );
+            await editFormik.setValues(personalInformation.data);
+            editFormik.setFieldValue('birthDay', formatDateToScreen(personalInformation.data.birthDay));
+        } catch (error) {
+            toaster(handleError(error), 5000, 'error', 'filled');
+        }
+        setLoading(false);
+    }
 
     return (
         <Box className={styles.box}>
@@ -150,6 +154,28 @@ const PersonalTab: React.FC = () => {
                             labelFontSize="80%"
                         />
                     </div>
+                    {editing &&
+                        <div className={styles.buttonRow}>
+                            <BaseButton
+                                text={t('save')}
+                                backGroundColor={'green'}
+                                fontSize='100%'
+                                fontWeight='bold'
+                                type="submit"
+                                icon={SaveIcon}
+                                onClick={() => setEditing(true)}
+                            />
+                            <BaseButton
+                                text={t('cancel')}
+                                backGroundColor={'red'}
+                                fontSize='100%'
+                                fontWeight='bold'
+                                type="button"
+                                icon={CancelIcon}
+                                onClick={() => fetchPersonalInformation()}
+                            />
+                        </div>
+                    }
                 </form>
             </div>
             }
