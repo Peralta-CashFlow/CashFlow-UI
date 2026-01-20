@@ -20,7 +20,7 @@ interface BaseTextFieldProps {
     onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
     error?: boolean;
     helperText?: string | boolean;
-    value?: string | number;
+    value?: string | number | null;
     disabled?: boolean;
 }
 

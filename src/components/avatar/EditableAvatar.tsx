@@ -1,16 +1,17 @@
 import { Avatar, Box } from "@mui/material";
 import colors from "../../assets/colors/colors";
 import { CameraAlt } from "@mui/icons-material";
+import ClearIcon from '@mui/icons-material/Clear';
 import { useRef } from "react";
 
 interface AvatarProps {
-    image: string;
+    image: string | null;
     width: number;
     height: number;
     fallback: string;
     tooltip: string;
     editing: boolean;
-    onChange: (base64: string) => void;
+    onChange: (base64: string | null) => void;
 }
 
 const EditableAvatar: React.FC<AvatarProps> = ({
@@ -91,6 +92,25 @@ const EditableAvatar: React.FC<AvatarProps> = ({
                 >
                     <CameraAlt fontSize="large" />
                 </Box>
+
+                {image && editing && (
+                    <ClearIcon
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onChange(null);
+                        }}
+                        sx={{
+                            position: 'absolute',
+                            top: 0,
+                            right: 0,
+                            cursor: 'pointer',
+                            borderRadius: '50%',
+                            padding: '2px',
+                            fontSize: '20px'
+                        }}
+                    />
+                )}
+
             </Box>
 
             <input

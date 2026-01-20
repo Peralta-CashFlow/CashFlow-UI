@@ -26,7 +26,7 @@ const PersonalTab: React.FC = () => {
 
     const { t } = useTranslation();
     const internationalization = useInternationalizationStore();
-    const editFormik = usePersonalInformationFormik(setLoading);
+    const editFormik = usePersonalInformationFormik(setLoading, setEditing);
     const user = useUserStore().user;
     const toaster = useToaster();
 
@@ -43,8 +43,9 @@ const PersonalTab: React.FC = () => {
                 user.jwt,
                 user.id
             );
-            await editFormik.setValues(personalInformation.data);
+            editFormik.setValues(personalInformation.data);
             editFormik.setFieldValue('birthDay', formatDateToScreen(personalInformation.data.birthDay));
+            editFormik.setFieldValue('taxNumber', personalInformation.data.taxRegistration)
         } catch (error) {
             toaster(handleError(error), 5000, 'error', 'filled');
         }
@@ -120,13 +121,13 @@ const PersonalTab: React.FC = () => {
                             <BaseTextField
                                 label={t('tax-number')}
                                 required={false}
-                                fieldName='taxRegistration'
+                                fieldName='taxNumber'
                                 type='text'
-                                value={editFormik.values.taxRegistration}
+                                value={editFormik.values.taxNumber}
                                 onBlur={editFormik.handleBlur}
                                 onChange={editFormik.handleChange}
-                                error={editFormik.touched.taxRegistration && Boolean(editFormik.errors.taxRegistration)}
-                                helperText={editFormik.touched.taxRegistration && editFormik.errors.taxRegistration}
+                                error={editFormik.touched.taxNumber && Boolean(editFormik.errors.taxNumber)}
+                                helperText={editFormik.touched.taxNumber && editFormik.errors.taxNumber}
                                 disabled={!editing}
                             />
                             <BaseTextField
