@@ -4,8 +4,8 @@ export const formatDateToScreen = (date: string): string => {
     return `${splittedString[2]}/${splittedString[1]}/${splittedString[0]}`;
 }
 
-export const formatDateToBackend = (date: string): string => {
-    if (!date) return '';
+export const formatDateToBackend = (date: string | null): string | null => {
+    if (!date) return null;
     const splittedString = date.split('/');
     return `${splittedString[2]}-${splittedString[1]}-${splittedString[0]}`;
 }

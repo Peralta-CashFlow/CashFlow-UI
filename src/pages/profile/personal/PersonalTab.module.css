@@ -12,8 +12,13 @@
     justify-content: center;
 }
 
+.editButton {
+    position: absolute;
+    right: 10%;
+}
+
 .fields {
-    margin-top: 2%;
+    margin-top: 20px;
 }
 
 .avatar {
@@ -29,6 +34,19 @@
     align-items: center;
 }
 
+.fieldRow {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.buttonRow {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-top: 15px;
+}
+
 @media (max-width: 1400px) {
     .headerContainer {
         font-size: 120%;
@@ -36,6 +54,12 @@
     }
 
     .fields {
-        margin-top: 1%;
+        margin-top: 2%;
+    }
+
+    .fieldRow {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
     }
 }
