@@ -19,10 +19,10 @@ const Login: React.FC = () => {
 
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const { t } = useTranslation();
   const internationalization = useInternationalizationStore();
+  const [selectedLanguage, setSelectedLanguage] = useState(internationalization.language ? internationalization.language : 'en');
   const loginFormik = useLoginFormik(setLoading);
 
   const handleLanguageChange = (language: string) => {

@@ -1,3 +1,4 @@
+import stylesBase from '../Profile.module.css';
 import styles from "./PersonalTab.module.css";
 
 import { Box, CircularProgress } from "@mui/material";
@@ -53,17 +54,17 @@ const PersonalTab: React.FC = () => {
     }
 
     return (
-        <Box className={styles.box}>
+        <Box className={stylesBase.box}>
             {loading &&
-                <div className={styles.loadingContainer}>
+                <div className={stylesBase.loadingContainer}>
                     <CircularProgress sx={{ color: 'white' }} size={'5%'} />
                 </div>
             }
             {!loading && <div>
-                <div className={styles.headerContainer}>
+                <div className={stylesBase.headerContainer}>
                     <p>{t('personal-information-text')}</p>
                     {!editing &&
-                        <div className={styles.editButton}>
+                        <div className={stylesBase.editButton}>
                             <BaseButton
                                 text={t('edit')}
                                 backGroundColor={colors.blue}
@@ -156,7 +157,7 @@ const PersonalTab: React.FC = () => {
                         />
                     </div>
                     {editing &&
-                        <div className={styles.buttonRow}>
+                        <div className={stylesBase.buttonRow}>
                             <BaseButton
                                 text={t('save')}
                                 backGroundColor={'green'}

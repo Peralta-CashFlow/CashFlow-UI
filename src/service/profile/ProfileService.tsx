@@ -3,10 +3,12 @@ import LocalEnvironment from '../../config/LocalEnvironment';
 import { PersonalInformationFormData } from '../../dto/profile/PersonalInformationFormData';
 import { formatDateToBackend } from '../../utils/date/DateHandler';
 import { User } from '../../stores/user/UserStore';
+import { FinancialInformationFormData } from '../../dto/profile/FinancialInformationFormData';
 
 class ProfileService {
 
     personalInformationUrl = LocalEnvironment.API_AUTH_URL + '/user/personal-information';
+    financialInformationUrl = LocalEnvironment.API_AUTH_URL + '/financial-profile';
 
     async getPersonalInformation(language: string, authorization: string, userId: number) {
         const response = await axios.get(
@@ -39,6 +41,20 @@ class ProfileService {
             } 
         )
         return response;
+    }
+
+    async getFinancialInformation(language: string, user: User): Promise<FinancialInformationFormData> {
+        const response = await axios.get(
+            this.financialInformationUrl + '/' + user.id,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept-Language': language,
+                    'Authorization': user.jwt
+                }
+            }
+        )
+        return response.data;
     }
 }
 
