@@ -1,12 +1,21 @@
-export const parseLocaleNumber = (stringNumber: string, language: string): number => {
-    let normalized = stringNumber;
+export const parseLocaleNumber = (normalized: string, language: string): number => {
+    return normalize(normalized, language);
+}
 
+export const parseLocaleNumberStr = (normalized: string | null, language: string): string | null => {
+    if (!normalized) {
+        return null;
+    }
+    return normalize(normalized, language).toString();
+}
+
+const normalize = (normalized: string, language: string): number => {
     if (language === 'pt') {
         normalized = normalized.replace(/\./g, '').replace(',', '.');
     } else if (language === 'en') {
         normalized = normalized.replace(/,/g, '');
     }
-    return parseFloat(normalized);
+    return parseFloat(normalized)
 }
 
 export const toLocaleString = (value: string | null, language: string): string | null => {
