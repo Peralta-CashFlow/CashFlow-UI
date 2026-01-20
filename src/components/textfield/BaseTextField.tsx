@@ -22,13 +22,16 @@ interface BaseTextFieldProps {
     helperText?: string | boolean;
     value?: string | number | null;
     disabled?: boolean;
+    initialAdornment?: string
+    width?: string;
 }
 
 const BaseTextField: React.FC<BaseTextFieldProps> = ({
     label, color = 'white', variant = 'outlined',
     required, type = 'text', className, onChange,
     fontSize, fieldName, onBlur, error = false,
-    helperText, value, disabled = false
+    helperText, value, disabled = false, initialAdornment,
+    width = '100%'
 }) => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -60,7 +63,8 @@ const BaseTextField: React.FC<BaseTextFieldProps> = ({
                             WebkitTextFillColor: color,
                             boxShadow: '0 0 0 1000px transparent inset',
                             transition: 'background-color 9999s ease-in-out 0s',
-                        }
+                        },
+                        width: width,
                     },
                     label: { color: color },
                     '& .MuiOutlinedInput-root': {
@@ -82,6 +86,9 @@ const BaseTextField: React.FC<BaseTextFieldProps> = ({
                         },
                     },
                     input: {
+                        startAdornment: initialAdornment ?
+                            <InputAdornment position='start'><p style={{ color: color }}>{initialAdornment}</p></InputAdornment>
+                            : null,
                         endAdornment: (
                             <InputAdornment position="end">
                                 {type === 'password' &&

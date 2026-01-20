@@ -38,5 +38,15 @@
     "birth-day-invalid": "Formato DD/MM/AAAA",
     "edit": "Editar",
     "cancel": "Cancelar",
-    "save": "Salvar"
+    "save": "Salvar",
+    "occupation-max-char": "Profissão deve ter no máximo 50 caracteres",
+    "income-positive": "Renda deve ser maior que zero",
+    "expense-positive": "Despesa deve ser maior que zero",
+    "goals-max-char": "Meta deve ter no máximo 100 caracteres",
+    "financial-information-text": "Aqui você pode gerenciar suas informações financeiras.",
+    "occupation": "Profissão",
+    "monthly-income": "Renda Mensal",
+    "monthly-expense": "Despesa Mensal",
+    "savings-goal": "Meta de Poupança",
+    "currency-symbol": "R$"
 }

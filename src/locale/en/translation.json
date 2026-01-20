@@ -38,5 +38,15 @@
     "birth-day-invalid": "Format DD/MM/YYYY",
     "edit": "Edit",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "occupation-max-char": "Occupation must have at most 50 characters",
+    "income-positive": "Income must be greater than zero",
+    "expense-positive": "Expense must be greater than zero",
+    "goals-max-char": "Goal must have at most 100 characters",
+    "financial-information-text": "Here you can manage your financial information.",
+    "occupation": "Occupation",
+    "monthly-income": "Monthly Income",
+    "monthly-expense": "Monthly Expense",
+    "savings-goal": "Savings Goal",
+    "currency-symbol": "USD"
 }

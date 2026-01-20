@@ -1,0 +1,11 @@
+.fields {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.moneyFields {
+    display: flex;
+    gap: 30px;
+}
