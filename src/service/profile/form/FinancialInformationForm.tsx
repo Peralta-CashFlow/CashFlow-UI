@@ -5,7 +5,9 @@ import { useInternationalizationStore } from "../../../stores/internationalizati
 import { FinancialInformationFormData } from '../../../dto/profile/FinancialInformationFormData';
 import { handleError } from '../../../utils/error/ErrorHandler';
 import { useFormik } from 'formik';
-import { parseLocaleNumber } from '../../../utils/number/NumberHandler';
+import { parseLocaleNumber, toLocaleString } from '../../../utils/number/NumberHandler';
+import ProfileService from '../ProfileService';
+import { useUserStore } from '../../../stores/user/UserStore';
 
 export const useFinancialInformationFormik = (
     setLoading: (loading: boolean) => void,
@@ -15,6 +17,7 @@ export const useFinancialInformationFormik = (
     const { t } = useTranslation();
     const toaster = useToaster();
     const internationalization = useInternationalizationStore();
+    const user = useUserStore().user;
 
     const FinancialInformationFormDataValidation = Yup.object({
         occupation: Yup.string()
@@ -50,7 +53,17 @@ export const useFinancialInformationFormik = (
         setEditing: (editing: boolean) => void,
         setValues: (values: FinancialInformationFormData) => void
     ) => {
+        const response = await ProfileService.editFinancialInformation(
+            internationalization.language,
+            user,
+            values
+        )
+        response.expense = toLocaleString(response.expense, internationalization.language);
+        response.income = toLocaleString(response.income, internationalization.language);
+        setValues(response);
         setLoading(true);
+        setEditing(false);
+        toaster(t('edit-financial-information-success'), 5000, 'success', 'filled');
         try {
         } catch (error) {
             toaster(handleError(error), 5000, 'error', 'filled');

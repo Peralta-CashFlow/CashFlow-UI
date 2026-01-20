@@ -4,6 +4,7 @@ import { PersonalInformationFormData } from '../../dto/profile/PersonalInformati
 import { formatDateToBackend } from '../../utils/date/DateHandler';
 import { User } from '../../stores/user/UserStore';
 import { FinancialInformationFormData } from '../../dto/profile/FinancialInformationFormData';
+import { parseLocaleNumberStr } from '../../utils/number/NumberHandler';
 
 class ProfileService {
 
@@ -38,7 +39,7 @@ class ProfileService {
                     'Accept-Language': language,
                     'Authorization': user.jwt
                 }
-            } 
+            }
         )
         return response;
     }
@@ -46,6 +47,25 @@ class ProfileService {
     async getFinancialInformation(language: string, user: User): Promise<FinancialInformationFormData> {
         const response = await axios.get(
             this.financialInformationUrl + '/' + user.id,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept-Language': language,
+                    'Authorization': user.jwt
+                }
+            }
+        )
+        return response.data;
+    }
+
+    async editFinancialInformation(language: string, user: User, financialInformationData: FinancialInformationFormData): Promise<FinancialInformationFormData> {
+        financialInformationData.expense = parseLocaleNumberStr(financialInformationData.expense, language);
+        financialInformationData.income = parseLocaleNumberStr(financialInformationData.income, language);
+        financialInformationData.goals = financialInformationData.goals == '' ? null : financialInformationData.goals;
+        financialInformationData.occupation = financialInformationData.occupation == '' ? null : financialInformationData.occupation;
+        const response = await axios.patch(
+            this.financialInformationUrl,
+            JSON.stringify(financialInformationData),
             {
                 headers: {
                     'Content-Type': 'application/json',

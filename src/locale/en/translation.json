@@ -29,6 +29,7 @@
     "security": "Security",
     "tax-number-char": "Tax number must have 11 characters",
     "edit-personal-information-success": "Personal information updated successfully.",
+    "edit-financial-information-success": "Financial information updated successfully.",
     "profile-picture": "Profile Picture",
     "tax-number": "Tax Number",
     "gender": "Gender",
