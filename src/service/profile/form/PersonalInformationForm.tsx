@@ -59,6 +59,8 @@ export const usePersonalInformationFormik = (
             updatedValues.birthDay = formatDateToScreen(updatedValues.birthDay);
             updatedValues.taxNumber = updatedValues.taxRegistration;
             user.avatar = `data:image/png;base64,${updatedValues.avatar}`;
+            user.firstName = updatedValues.firstName;
+            user.lastName = updatedValues.lastName;
             setValues(updatedValues);
             setEditing(false);
             toaster(t('edit-personal-information-success'), 5000, 'success', 'filled');
