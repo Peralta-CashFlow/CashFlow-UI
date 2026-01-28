@@ -6,8 +6,7 @@ import { UserRegisterFormData } from '../../../dto/user/UserRegisterFormData';
 import { Severity, Variant, useToaster } from '../../../components/toaster/ToasterProvider';
 import { useTranslation } from 'react-i18next';
 import { useInternationalizationStore } from '../../../stores/internationalization/InternationalizationStore';
-
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+import { passwordRegex } from '../../../utils/text/TextUtil';
 
 export const useRegisterFormik = (
     setLoading: (loading: boolean) => void,
@@ -51,7 +50,7 @@ export const useRegisterFormik = (
         try {
             await UserService.registerUser(values, internationalization.language);
             setOpenModal(false);
-            toaster('User registered successfully', 5000, 'success', 'filled');
+            toaster(t('user-registered-success'), 5000, 'success', 'filled');
             formikHelpers.resetForm();
         } catch (error) {
             toaster(handleError(error), 5000, 'error', 'filled');

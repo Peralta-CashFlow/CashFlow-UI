@@ -5,10 +5,13 @@ import { formatDateToBackend } from '../../utils/date/DateHandler';
 import { User } from '../../stores/user/UserStore';
 import { FinancialInformationFormData } from '../../dto/profile/FinancialInformationFormData';
 import { parseLocaleNumberStr } from '../../utils/number/NumberHandler';
+import { ChangePasswordFormData } from '../../dto/profile/ChangePasswordFormData';
+import { DeleteAccountFormData } from '../../dto/profile/DeleteAccountFormData';
 
 class ProfileService {
 
-    personalInformationUrl = LocalEnvironment.API_AUTH_URL + '/user/personal-information';
+    userInformationUrl = LocalEnvironment.API_AUTH_URL + '/user';
+    personalInformationUrl = this.userInformationUrl + '/personal-information';
     financialInformationUrl = LocalEnvironment.API_AUTH_URL + '/financial-profile';
 
     async getPersonalInformation(language: string, authorization: string, userId: number) {
@@ -75,6 +78,34 @@ class ProfileService {
             }
         )
         return response.data;
+    }
+
+    async changePassword(language: string, changePasswordData: ChangePasswordFormData, user: User) {
+        await axios.patch(
+            this.userInformationUrl + '/change-password',
+            JSON.stringify(changePasswordData),
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept-Language': language,
+                    'Authorization': user.jwt
+                }
+            }
+        )
+    }
+
+    async deleteAccount(language: string, deleteAccountData: DeleteAccountFormData, user: User) {
+        await axios.delete(
+            this.userInformationUrl + '/delete-account',
+            {
+                data: JSON.stringify(deleteAccountData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept-Language': language,
+                    'Authorization': user.jwt
+                }
+            }
+        )
     }
 }
 
