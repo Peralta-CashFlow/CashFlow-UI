@@ -49,5 +49,14 @@
     "monthly-income": "Monthly Income",
     "monthly-expense": "Monthly Expense",
     "savings-goal": "Savings Goal",
-    "currency-symbol": "USD"
+    "currency-symbol": "USD",
+    "security-information-text": "Here you can manage your security settings.",
+    "change-password": "Change Password",
+    "delete-account": "Delete Account",
+    "user-registered-success": "User registered successfully.",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "password-updated-success": "Password updated successfully.",
+    "delete-account-text": "Deleting your account is irreversible. All your data will be permanently removed. Please confirm your password to proceed.",
+    "delete-account-success": "Account deleted successfully."
 }
