@@ -8,6 +8,10 @@ This is the React application responsible for all the front-end pages and functi
     - [Login](#login)
     - [Register](#register)
     - [Internationalization](#internationalization)
+    - [Profile Management](#profile-management)
+        - [Personal Information](#personal-information)
+        - [Financial Profile](#financial-profile)
+        - [Security Information](#security-information)
 - [Local Used Ports](#local-used-ports)
 
 # Features
@@ -23,6 +27,34 @@ This is a modal on login page that comunicates with API-Auth to register a new u
 ## Internationalization
 
 The system uses [i18next](https://www.i18next.com/) framework to implement internationalizatino on all of the pages and features. 
+
+## Profile Management
+
+This is a modal that can be accessed by clicking on the avatar and selecting settings option.
+
+### Personal Information
+
+A tab inside the profile management modal where you can update your personal information such as: 
+
+- profile picture;
+- first name;
+- last name;
+- tax number;
+- birthday;
+- gender;
+
+### Financial Profile
+
+A tab inside the profile management modal where you can update your financial information such as:
+
+- occupation;
+- monthly income;
+- monthly expenses;
+- savings goal;
+
+### Security Information
+
+A tab inside the profile management modal where you can update your **password** or **delete** your acocunt.
 
 # Local Used Ports
 
