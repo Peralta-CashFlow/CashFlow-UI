@@ -41,9 +41,11 @@ const FinancialTab: React.FC = () => {
                 internationalization.language,
                 user
             );
-            editFormik.setValues(financialInformation);
-            editFormik.setFieldValue('income', toLocaleString(financialInformation.income, internationalization.language));
-            editFormik.setFieldValue('expense', toLocaleString(financialInformation.expense, internationalization.language));
+            if (financialInformation) {
+                editFormik.setValues(financialInformation);
+                editFormik.setFieldValue('income', toLocaleString(financialInformation.income, internationalization.language));
+                editFormik.setFieldValue('expense', toLocaleString(financialInformation.expense, internationalization.language));
+            }
         } catch (error) {
             toaster(handleError(error), 5000, 'error', 'filled');
         }

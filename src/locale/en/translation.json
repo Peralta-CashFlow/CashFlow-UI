@@ -58,5 +58,7 @@
     "new-password": "New Password",
     "password-updated-success": "Password updated successfully.",
     "delete-account-text": "Deleting your account is irreversible. All your data will be permanently removed. Please confirm your password to proceed.",
-    "delete-account-success": "Account deleted successfully."
+    "delete-account-success": "Account deleted successfully.",
+    "category": "Category",
+    "registrations": "Registrations"
 }

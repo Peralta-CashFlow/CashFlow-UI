@@ -58,7 +58,7 @@ class ProfileService {
                 }
             }
         )
-        return response.data;
+        return response?.data;
     }
 
     async editFinancialInformation(language: string, user: User, financialInformationData: FinancialInformationFormData): Promise<FinancialInformationFormData> {
