@@ -12,7 +12,7 @@ export const formatDateToBackend = (date: string | null): string | null => {
 
 export const formatStringInputToDate = (date: string): string => {
 
-    const onlyNumbers = date.replace(/\D/g, '');
+    const onlyNumbers = date.replaceAll(/\D/g, '');
     
     const limitedNumbers = onlyNumbers.slice(0, 8);
     

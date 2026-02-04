@@ -34,6 +34,7 @@ const FinancialTab: React.FC = () => {
     }, []);
 
     const fetchFinancialInformation = async () => {
+        editFormik.resetForm();
         setEditing(false);
         setLoading(true);
         try {
@@ -41,9 +42,11 @@ const FinancialTab: React.FC = () => {
                 internationalization.language,
                 user
             );
-            editFormik.setValues(financialInformation);
-            editFormik.setFieldValue('income', toLocaleString(financialInformation.income, internationalization.language));
-            editFormik.setFieldValue('expense', toLocaleString(financialInformation.expense, internationalization.language));
+            if (financialInformation) {
+                editFormik.setValues(financialInformation);
+                editFormik.setFieldValue('income', toLocaleString(financialInformation.income, internationalization.language));
+                editFormik.setFieldValue('expense', toLocaleString(financialInformation.expense, internationalization.language));
+            }
         } catch (error) {
             toaster(handleError(error), 5000, 'error', 'filled');
         }
@@ -54,11 +57,11 @@ const FinancialTab: React.FC = () => {
         let numericValue = e.target.value.replace(/\D/g, '');
 
         if (!numericValue) {
-            editFormik.setFieldValue(fieldName, null);
+            editFormik.setFieldValue(fieldName, '');
             return;
         }
 
-        const floatValue = parseFloat(numericValue) / 100;
+        const floatValue = Number.parseFloat(numericValue) / 100;
 
         const formattedValue = floatValue.toLocaleString(internationalization.language, {
             minimumFractionDigits: 2,

@@ -11,11 +11,11 @@ export const parseLocaleNumberStr = (normalized: string | null, language: string
 
 const normalize = (normalized: string, language: string): number => {
     if (language === 'pt') {
-        normalized = normalized.replace(/\./g, '').replace(',', '.');
+        normalized = normalized.replaceAll('.', '').replaceAll(',', '.');
     } else if (language === 'en') {
-        normalized = normalized.replace(/,/g, '');
+        normalized = normalized.replaceAll(',', '');
     }
-    return parseFloat(normalized)
+    return Number.parseFloat(normalized)
 }
 
 export const toLocaleString = (value: string | null, language: string): string | null => {
@@ -23,7 +23,7 @@ export const toLocaleString = (value: string | null, language: string): string |
         return null;
     }
 
-    return parseFloat(value).toLocaleString(language, {
+    return Number.parseFloat(value).toLocaleString(language, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     });

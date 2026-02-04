@@ -10,6 +10,8 @@ import { useUserValidator } from './validators/user/UserValidator';
 import { useUserStore } from "./stores/user/UserStore";
 import BaseAvatar from './components/avatar/BaseAvatar';
 import { useTranslation } from 'react-i18next';
+import Menu from './components/menu/Menu';
+import Category from './pages/category/Category';
 
 function App() {
 
@@ -35,6 +37,7 @@ function App() {
   return (
     <ToasterProvider>
       <div>
+        {userIsLoggedIn() && <Menu /> }
         <div style={{
           position: 'absolute',
           top: '15px',
@@ -55,6 +58,7 @@ function App() {
           <Route path='/' element={userIsLoggedIn() ? <Navigate to='/home' /> : <Login />} />
           <Route path='/home' element={userIsLoggedIn() ? <Home /> : <Navigate to='/' />} />
           <Route path='/profile/settings' element={userIsLoggedIn() ? <Profile /> : <Navigate to='/' />} />
+          <Route path='/category' element={userIsLoggedIn() ? <Category /> : <Navigate to='/' />} />
         </Routes>
       </div>
     </ToasterProvider>
