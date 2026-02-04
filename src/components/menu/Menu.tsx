@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ClosedMenu from './ClosedMenu';
 import OpenMenu from './OpenMenu';
 
-const Menu: React.FC = ({}) => {
+const Menu: React.FC = () => {
 
     const [open, setOpen] = useState(false);
 

@@ -53,18 +53,18 @@ export const useFinancialInformationFormik = (
         setEditing: (editing: boolean) => void,
         setValues: (values: FinancialInformationFormData) => void
     ) => {
-        const response = await ProfileService.editFinancialInformation(
-            internationalization.language,
-            user,
-            values
-        )
-        response.expense = toLocaleString(response.expense, internationalization.language);
-        response.income = toLocaleString(response.income, internationalization.language);
-        setValues(response);
-        setLoading(true);
-        setEditing(false);
-        toaster(t('edit-financial-information-success'), 5000, 'success', 'filled');
         try {
+            setLoading(true);
+            const response = await ProfileService.editFinancialInformation(
+                internationalization.language,
+                user,
+                values
+            )
+            response.expense = toLocaleString(response.expense, internationalization.language);
+            response.income = toLocaleString(response.income, internationalization.language);
+            setValues(response);
+            setEditing(false);
+            toaster(t('edit-financial-information-success'), 5000, 'success', 'filled');
         } catch (error) {
             toaster(handleError(error), 5000, 'error', 'filled');
         }

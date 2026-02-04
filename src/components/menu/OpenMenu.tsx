@@ -25,19 +25,23 @@ const OpenMenu: React.FC<OpenMenuProps> = ({
     const DrawerOptions = (
         <Box className={styles.box}>
             <div className={styles.logoContainer}>
-                <img 
-                    src={logo} 
-                    alt="Logo" 
-                    className={styles.logo}
+                <button
+                    className={styles.logoButton}
                     onClick={() => handleNavigate('/home')}
-                />
+                >
+                    <img
+                        src={logo}
+                        className={styles.logo}
+                        alt='Logo'
+                    />
+                </button>
                 <ArrowLeftIcon
                     className={styles.closeIcon}
                     sx={{ fontSize: 35 }}
                     onClick={() => setOpen(false)}
                 />
             </div>
-            <RegisterOption handleClick={handleNavigate}/>
+            <RegisterOption handleClick={handleNavigate} />
         </Box>
     );
 

@@ -52,20 +52,6 @@
     background-color: var(--white);
 }
 
-.logoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.logo {
-    width: 35%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    cursor: pointer;
-}
-
 .closeIcon {
     position: absolute;
     top: 0;
@@ -81,4 +67,27 @@
 
 .baseOption {
     display: flex;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.logoButton {
+  all: unset;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.logoButton:focus-visible {
+  outline: 2px solid var(--white);
+  border-radius: 4px;
+}
+
+.logo {
+  height: 80px;
+  width: auto;
 }

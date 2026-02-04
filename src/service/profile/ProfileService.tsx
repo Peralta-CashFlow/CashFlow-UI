@@ -66,6 +66,7 @@ class ProfileService {
         financialInformationData.income = parseLocaleNumberStr(financialInformationData.income, language);
         financialInformationData.goals = financialInformationData.goals == '' ? null : financialInformationData.goals;
         financialInformationData.occupation = financialInformationData.occupation == '' ? null : financialInformationData.occupation;
+        financialInformationData.userId = user.id;
         const response = await axios.patch(
             this.financialInformationUrl,
             JSON.stringify(financialInformationData),

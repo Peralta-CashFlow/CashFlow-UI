@@ -34,7 +34,7 @@ const RegisterOption: React.FC<RegisterOptionProps> = ({
                             }} />
                     </div>
                     {subOptions &&
-                        <div className={styles.subOption}
+                        <ListItemButton className={styles.subOption}
                             onClick={() => handleClick('/category')}
                         >
                             <ListItemText primary={t('category')}
@@ -44,7 +44,7 @@ const RegisterOption: React.FC<RegisterOptionProps> = ({
                                         style: { fontSize: '55%' }
                                     }
                                 }} />
-                        </div>
+                        </ListItemButton>
                     }
                 </ListItemIcon>
             </ListItemButton>

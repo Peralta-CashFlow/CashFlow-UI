@@ -4,7 +4,6 @@ import styles from "./SecurityTab.module.css";
 import { Box, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useUserStore } from "../../../stores/user/UserStore";
 import BaseButton from "../../../components/button/BaseButton";
 import KeyIcon from '@mui/icons-material/Key';
 import colors from "../../../assets/colors/colors";

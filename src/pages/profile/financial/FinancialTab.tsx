@@ -34,6 +34,7 @@ const FinancialTab: React.FC = () => {
     }, []);
 
     const fetchFinancialInformation = async () => {
+        editFormik.resetForm();
         setEditing(false);
         setLoading(true);
         try {
@@ -56,11 +57,11 @@ const FinancialTab: React.FC = () => {
         let numericValue = e.target.value.replace(/\D/g, '');
 
         if (!numericValue) {
-            editFormik.setFieldValue(fieldName, null);
+            editFormik.setFieldValue(fieldName, '');
             return;
         }
 
-        const floatValue = parseFloat(numericValue) / 100;
+        const floatValue = Number.parseFloat(numericValue) / 100;
 
         const formattedValue = floatValue.toLocaleString(internationalization.language, {
             minimumFractionDigits: 2,
