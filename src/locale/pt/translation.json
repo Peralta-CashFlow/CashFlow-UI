@@ -60,5 +60,8 @@
     "delete-account-text": "Deletar sua conta é irreversível. Todos os seus dados serão permanentemente removidos. Por favor confirme sua senha para prosseguir.",
     "delete-account-success": "Conta deletada com sucesso.",
     "category": "Categoria",
-    "registrations": "Cadastros"
+    "registrations": "Cadastros",
+    "categories": "Categorias",
+    "search-categories": "Procure categorias...",
+    "create-categorie": "Criar categoria"
 }

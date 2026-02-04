@@ -22,7 +22,7 @@ interface BaseTextFieldProps {
     helperText?: string | boolean;
     value?: string | number | null;
     disabled?: boolean;
-    initialAdornment?: string
+    initialAdornment?: React.ReactNode
     width?: string;
 }
 

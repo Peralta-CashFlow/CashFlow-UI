@@ -1,7 +1,19 @@
+import pageStyles from '../Page.module.css'
+
+import { useTranslation } from 'react-i18next'
+import BookmarksRoundedIcon from '@mui/icons-material/BookmarksRounded';
+
 const Category: React.FC = () => {
 
+    const { t } = useTranslation();
+
     return (
-        <h1>CATEGORY</h1>
+        <div className={pageStyles.pageBox}>
+            <div className={pageStyles.titleBox}>
+                <BookmarksRoundedIcon fontSize='large' />
+                <h1>{t('categories')}</h1>
+            </div>
+        </div>
     )
 }
 
