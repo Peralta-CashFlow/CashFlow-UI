@@ -9,3 +9,10 @@
 .searchField {
     width: 60%;
 }
+
+.table {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 3%;
+}

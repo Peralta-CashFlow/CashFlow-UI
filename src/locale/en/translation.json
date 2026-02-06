@@ -63,5 +63,10 @@
     "registrations": "Registrations",
     "categories": "Categories",
     "search-categories": "Search categories...",
-    "create-categorie": "Create categorie"
+    "create-categorie": "Create categorie",
+    "name": "Name",
+    "color": "Color",
+    "icon": "Icon",
+    "no-category-found": "No category found, change the search and try again.",
+    "of": "of"
 }

@@ -63,5 +63,10 @@
     "registrations": "Cadastros",
     "categories": "Categorias",
     "search-categories": "Procure categorias...",
-    "create-categorie": "Criar categoria"
+    "create-categorie": "Criar categoria",
+    "name": "Nome",
+    "color": "Cor",
+    "icon": "Icone",
+    "no-category-found": "Nenhuma categoria encontrada, troque a pesquisa e tente novamente.",
+    "of": "de"
 }
