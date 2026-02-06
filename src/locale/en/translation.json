@@ -60,5 +60,13 @@
     "delete-account-text": "Deleting your account is irreversible. All your data will be permanently removed. Please confirm your password to proceed.",
     "delete-account-success": "Account deleted successfully.",
     "category": "Category",
-    "registrations": "Registrations"
+    "registrations": "Registrations",
+    "categories": "Categories",
+    "search-categories": "Search categories...",
+    "create-categorie": "Create categorie",
+    "name": "Name",
+    "color": "Color",
+    "icon": "Icon",
+    "no-category-found": "No category found, change the search and try again.",
+    "of": "of"
 }
