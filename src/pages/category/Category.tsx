@@ -12,12 +12,14 @@ import TableHeader from '../../dto/table/TableHeader';
 import { useState } from 'react';
 import { CategoryResponse } from '../../dto/category/CategoryResponse';
 import BaseTable from '../../components/table/BaseTable';
+import CategoryModal from '../../components/modal/category/CategoryModal';
 
 const Category: React.FC = () => {
 
     const { t } = useTranslation();
 
     const [categories, setCategories] = useState<CategoryResponse[]>([]);
+    const [modalOpen, setModalOpen] = useState(false);
 
     const tableHeaders: TableHeader[] = [
         { label: t('name'), key: 'name' },
@@ -46,6 +48,7 @@ const Category: React.FC = () => {
                     fontWeight='bolder'
                     icon={AddCircleOutlineRoundedIcon}
                     fontSize='15px'
+                    onClick={() => setModalOpen(true)}
                 />
             </div>
             <div className={styles.table}>
@@ -65,6 +68,10 @@ const Category: React.FC = () => {
                     borderColor={colors.white}
                 />
             </div>
+            <CategoryModal 
+                open={modalOpen}
+                handleClose={() => setModalOpen(false)}
+            />
         </div>
     )
 }
