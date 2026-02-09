@@ -54,7 +54,7 @@ const FinancialTab: React.FC = () => {
     }
 
     const handleValueChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, fieldName: string) => {
-        let numericValue = e.target.value.replace(/\D/g, '');
+        let numericValue = e.target.value.replaceAll(/\D/g, '');
 
         if (!numericValue) {
             editFormik.setFieldValue(fieldName, '');

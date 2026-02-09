@@ -1,7 +1,7 @@
 import styles from './BaseEmojiPicker.module.css';
 
 import { IconButton, Popover } from "@mui/material"
-import EmojiPicker, { EmojiStyle, Theme } from 'emoji-picker-react'
+import EmojiPicker, { Theme } from 'emoji-picker-react'
 import { useState } from "react";
 
 interface BaseEmojiPickerProps {
@@ -22,9 +22,9 @@ const BaseEmojiPicker: React.FC<BaseEmojiPickerProps> = ({
     return (
         <div className={styles.emojiContainer}>
             {emoji != '' &&
-                <p className={styles.emojiRemove} onClick={() => setEmoji('')}>
+                <button className={styles.emojiRemove} onClick={() => setEmoji('')}>
                     x
-                </p>
+                </button>
             }
             <p>Emoji</p>
             <IconButton
