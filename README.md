@@ -12,6 +12,8 @@ This is the React application responsible for all the front-end pages and functi
         - [Personal Information](#personal-information)
         - [Financial Profile](#financial-profile)
         - [Security Information](#security-information)
+    - [Category](#category)
+        - [Category Registration](#category-registration)
 - [Local Used Ports](#local-used-ports)
 
 # Features
@@ -55,6 +57,18 @@ A tab inside the profile management modal where you can update your financial in
 ### Security Information
 
 A tab inside the profile management modal where you can update your **password** or **delete** your acocunt.
+
+## Category
+
+This is a page that can be accessed by clicking on the `Register -> Category` menu option.
+
+### Category Registration
+
+On the category page click on the `+ Create Category` button, it will open a modal to register new categories with the bellow information:
+
+- name;
+- color;
+- emoji;
 
 # Local Used Ports
 
