@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.colorTextContainer {
+    border: 1px solid white;
+    padding: 10px 10px 10px 10px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    width: 150px;
+    height: 50px;
+}
+
+.colorRemove {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 12px;
+    line-height: 1;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+}

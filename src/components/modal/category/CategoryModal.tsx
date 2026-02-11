@@ -6,8 +6,10 @@ import BaseTextField from '../../textfield/BaseTextField'
 import BaseButton from '../../button/BaseButton'
 import colors from '../../../assets/colors/colors'
 import { HexColorPicker } from 'react-colorful'
+import BaseEmojiPicker from '../../pickers/emoji/BaseEmojiPicker'
+import { useCategoryCreationFormik } from '../../../service/category/form/CategoryCreationForm'
 import { useState } from 'react'
-import BaseEmojiPicker from '../../pickers/BaseEmojiPicker'
+import BaseColorPicker from '../../pickers/color/BaseColorPicker'
 
 
 interface CategoryModalProps {
@@ -19,33 +21,45 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
     open, handleClose
 }) => {
 
-    const [color, setColor] = useState("#303030");
-    const [emoji, setEmoji] = useState<string>('')
-
+    const [loading, setLoading] = useState(false);
     const { t } = useTranslation();
+
+    const createCategoryFormik = useCategoryCreationFormik(setLoading, handleClose);
 
     return (
         <Modal
             open={open}
-            onClose={handleClose}
+            onClose={() => {
+                handleClose();
+                createCategoryFormik.resetForm();
+            }}
         >
             <Box className={styles.modal}>
                 <h1>{t('create-categorie')}</h1>
                 <form
                     className={styles.form}
+                    onSubmit={createCategoryFormik.handleSubmit}
                 >
                     <BaseTextField
                         label={t('name')}
+                        fieldName='name'
                         required={true}
+                        value={createCategoryFormik.values.name}
+                        onBlur={createCategoryFormik.handleBlur}
+                        onChange={createCategoryFormik.handleChange}
+                        error={createCategoryFormik.touched.name && Boolean(createCategoryFormik.errors.name)}
+                        helperText={createCategoryFormik.touched.name && createCategoryFormik.errors.name}
                     />
 
-                    <HexColorPicker color={color} onChange={setColor} />
-                    <BaseTextField
+                    <BaseColorPicker
+                        color={createCategoryFormik.values.color}
+                        onChange={(newColor: string | undefined) => createCategoryFormik.setFieldValue('color', newColor)}
                         label={t('color')}
                     />
-                    <BaseEmojiPicker 
-                        emoji={emoji}
-                        setEmoji={setEmoji}
+
+                    <BaseEmojiPicker
+                        emoji={createCategoryFormik.values.icon}
+                        setEmoji={(emoji: string | undefined) => createCategoryFormik.setFieldValue('icon', emoji)}
                         fontSize={30}
                     />
                     <BaseButton
@@ -53,6 +67,8 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                         backGroundColor={colors.lightBlueGreen}
                         type='submit'
                         fontWeight='bolder'
+                        loading={loading}
+                        spinnerSize={20}
                     />
                 </form>
             </Box>

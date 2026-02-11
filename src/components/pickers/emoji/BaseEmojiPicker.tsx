@@ -5,8 +5,8 @@ import EmojiPicker, { Theme } from 'emoji-picker-react'
 import { useState } from "react";
 
 interface BaseEmojiPickerProps {
-    emoji: string;
-    setEmoji: (emoji: string) => void
+    emoji: string | undefined;
+    setEmoji: (emoji: string | undefined) => void
     fontSize?: number
     width?: number
     height?: number
@@ -21,8 +21,12 @@ const BaseEmojiPicker: React.FC<BaseEmojiPickerProps> = ({
 
     return (
         <div className={styles.emojiContainer}>
-            {emoji != '' &&
-                <button className={styles.emojiRemove} onClick={() => setEmoji('')}>
+            {emoji != undefined &&
+                <button
+                    className={styles.emojiRemove}
+                    onClick={() => setEmoji(undefined)}
+                    type='button'
+                >
                     x
                 </button>
             }
