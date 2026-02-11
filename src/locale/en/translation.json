@@ -68,5 +68,8 @@
     "color": "Color",
     "icon": "Icon",
     "no-category-found": "No category found, change the search and try again.",
-    "of": "of"
+    "of": "of",
+    "category-name-required": "Category name should not be empty.",
+    "category-name-too-long": "Category name must have at most 20 characters.",
+    "create-category-success": "Category created successfully."
 }
