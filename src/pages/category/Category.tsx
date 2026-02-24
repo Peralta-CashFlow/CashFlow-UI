@@ -9,16 +9,31 @@ import BaseTextField from '../../components/textfield/BaseTextField';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import BaseButton from '../../components/button/BaseButton';
 import TableHeader from '../../dto/table/TableHeader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CategoryResponse } from '../../dto/category/CategoryResponse';
 import BaseTable from '../../components/table/BaseTable';
 import CategoryModal from '../../components/modal/category/CategoryModal';
+import { useToaster } from '../../components/toaster/ToasterProvider';
+import { handleError } from '../../utils/error/ErrorHandler';
+import categoryService from '../../service/category/CategoryService';
+import { useInternationalizationStore } from '../../stores/internationalization/InternationalizationStore';
+import { useUserStore } from '../../stores/user/UserStore';
+import { PageResponse } from '../../dto/page/PageResponse';
 
 const Category: React.FC = () => {
 
     const { t } = useTranslation();
+    const toaster = useToaster();
+    const internationalization = useInternationalizationStore();
+    const user = useUserStore().user;
 
-    const [categories, setCategories] = useState<CategoryResponse[]>([]);
+    const pageSize = 10;
+    const [page, setPage] = useState(0);
+
+    const [search, setSearch] = useState('');
+
+    const [loading, setLoading] = useState(false);
+    const [categories, setCategories] = useState<PageResponse<CategoryResponse>>(new PageResponse<CategoryResponse>([], 0, pageSize, 0, 0));
     const [modalOpen, setModalOpen] = useState(false);
 
     const tableHeaders: TableHeader[] = [
@@ -26,6 +41,38 @@ const Category: React.FC = () => {
         { label: t('color'), key: 'color' },
         { label: t('icon'), key: 'icon' }
     ]
+
+    const fetchCategories = async () => {
+        setLoading(true);
+        try {
+            const response: PageResponse<CategoryResponse> = await categoryService.listCategories(
+                internationalization.language,
+                user.jwt,
+                page,
+                pageSize,
+                search
+            );
+            setCategories(response);
+        } catch (error) {
+            toaster(handleError(error), 5000, 'error', 'filled');
+        }
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        fetchCategories();
+    }, [page]);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            if (page !== 0) {
+                setPage(0);
+            }
+            fetchCategories();
+        }, 700);
+
+        return () => clearTimeout(handler);
+    }, [search]);
 
     return (
         <div className={pageStyles.pageBox}>
@@ -39,6 +86,8 @@ const Category: React.FC = () => {
                         label={t('search-categories')}
                         type='text'
                         initialAdornment={<SearchRoundedIcon />}
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
                 <BaseButton
@@ -54,7 +103,7 @@ const Category: React.FC = () => {
             <div className={styles.table}>
                 <BaseTable
                     headers={tableHeaders}
-                    rows={categories}
+                    rows={categories.response}
                     rowKey={'id'}
                     width='80vw'
                     height='62vh'
@@ -66,11 +115,20 @@ const Category: React.FC = () => {
                     rowBackGroundColor={colors.gray}
                     rowFontColor={colors.white}
                     borderColor={colors.white}
+                    loading={loading}
+                    page={page}
+                    changePage={(e, number) => setPage(number)}
+                    rowsPerPage={pageSize}
+                    pageCount={categories.totalElements}
+                    rowFontSize='18px'
                 />
             </div>
-            <CategoryModal 
+            <CategoryModal
                 open={modalOpen}
                 handleClose={() => setModalOpen(false)}
+                setPage={setPage}
+                fetchCategories={fetchCategories}
+                page={page}
             />
         </div>
     )
