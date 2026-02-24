@@ -10,7 +10,10 @@ import { useUserStore } from '../../../stores/user/UserStore';
 
 export const useCategoryCreationFormik = (
     setLoading: (loading: boolean) => void,
-    handleClose: () => void
+    handleClose: () => void,
+    page: number,
+    setPage: (page: number) => void,
+    fetchCategories: () => void
 ) => {
 
     const { t } = useTranslation();
@@ -38,6 +41,11 @@ export const useCategoryCreationFormik = (
                 values
             );
             formikHelpers.resetForm();
+            if (page === 0) {
+                fetchCategories();
+            } else {
+                setPage(0);
+            }
             handleClose();
             toaster(t('create-category-success'), 5000, 'success', 'filled');
         } catch (error) {

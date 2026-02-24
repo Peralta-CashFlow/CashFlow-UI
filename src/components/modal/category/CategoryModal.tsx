@@ -5,7 +5,6 @@ import { Box, Modal } from "@mui/material"
 import BaseTextField from '../../textfield/BaseTextField'
 import BaseButton from '../../button/BaseButton'
 import colors from '../../../assets/colors/colors'
-import { HexColorPicker } from 'react-colorful'
 import BaseEmojiPicker from '../../pickers/emoji/BaseEmojiPicker'
 import { useCategoryCreationFormik } from '../../../service/category/form/CategoryCreationForm'
 import { useState } from 'react'
@@ -14,17 +13,20 @@ import BaseColorPicker from '../../pickers/color/BaseColorPicker'
 
 interface CategoryModalProps {
     open: boolean,
-    handleClose: () => void
+    handleClose: () => void,
+    page: number,
+    setPage: (page: number) => void
+    fetchCategories: () => void
 }
 
 const CategoryModal: React.FC<CategoryModalProps> = ({
-    open, handleClose
+    open, handleClose, page, setPage, fetchCategories
 }) => {
 
     const [loading, setLoading] = useState(false);
     const { t } = useTranslation();
 
-    const createCategoryFormik = useCategoryCreationFormik(setLoading, handleClose);
+    const createCategoryFormik = useCategoryCreationFormik(setLoading, handleClose, page, setPage, fetchCategories);
 
     return (
         <Modal

@@ -11,14 +11,14 @@ interface BaseTableProps<T> {
     overflow: string
     noDataFoundText: string
     loading?: boolean
-    color?: string
     headerBackGroundColor?: string
     headerFontColor?: string
     headerFontSize?: string
     rowBackGroundColor?: string
     rowFontColor?: string
+    rowFontSize?: string
     borderColor?: string
-    changePage?: () => void
+    changePage?: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void
     pageCount?: number,
     rowsPerPage?: number,
     page?: number
@@ -27,13 +27,24 @@ interface BaseTableProps<T> {
 const BaseTable = <T extends Record<string, any>>({
     headers, rows, rowKey, width, height,
     overflow, noDataFoundText, loading,
-    color, headerBackGroundColor, headerFontColor,
+    headerBackGroundColor, headerFontColor,
     headerFontSize, rowBackGroundColor, rowFontColor,
     borderColor, changePage = () => null, pageCount = 0,
-    rowsPerPage = 10, page = 0
+    rowsPerPage = 10, page = 0, rowFontSize
 }: BaseTableProps<T>) => {
 
     const { t } = useTranslation();
+
+    const renderCellContent = (header: TableHeader, row: T) => {
+        if (header.key === 'color') {
+            return (
+                <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ backgroundColor: row[header.key], width: 25, height: 25, borderRadius: 15 }} />
+                </div>
+            );
+        }
+        return row[header.key];
+    };
 
     const tableEmpty = () => {
         return (
@@ -62,10 +73,13 @@ const BaseTable = <T extends Record<string, any>>({
         <Paper sx={{
             width: width, maxHeight: height, overflow: overflow
         }}>
-            <TableContainer>
+            <TableContainer
+                sx={{
+                    maxHeight: height,
+                    overflow: overflow
+                }}>
                 <Table stickyHeader sx={{
                     border: `1px solid ${borderColor}`,
-                    height: height
                 }}>
                     <TableHead>
                         <TableRow>
@@ -88,14 +102,15 @@ const BaseTable = <T extends Record<string, any>>({
                     <TableBody>
                         {loading ? (
                             <TableRow>
-                                <TableCell colSpan={headers.length}>
+                                <TableCell
+                                    colSpan={headers.length}
+                                    sx={{ backgroundColor: rowBackGroundColor }}
+                                >
                                     <Box display="flex"
                                         justifyContent="center"
                                         alignItems="center"
-                                        height="100px"
-                                        sx={{ color: color }}
                                     >
-                                        <CircularProgress sx={{ color: color }} />
+                                        <CircularProgress sx={{ color: rowFontColor }} />
                                     </Box>
                                 </TableCell>
                             </TableRow>
@@ -108,9 +123,11 @@ const BaseTable = <T extends Record<string, any>>({
                                                 key={header.key}
                                                 sx={{
                                                     backgroundColor: rowBackGroundColor,
-                                                    color: rowFontColor
+                                                    color: rowFontColor,
+                                                    textAlign: 'center',
+                                                    fontSize: rowFontSize,
                                                 }}>
-                                                {row[header.key]}
+                                                {renderCellContent(header, row)}
                                             </TableCell>
                                         ))}
                                     </TableRow>
@@ -126,7 +143,7 @@ const BaseTable = <T extends Record<string, any>>({
                             count={pageCount}
                             rowsPerPage={rowsPerPage}
                             page={page}
-                            onPageChange={changePage}
+                            onPageChange={(e, newPage) => changePage(e, newPage)}
                             labelDisplayedRows={({ from, to, count }) =>
                                 `${from}-${to} ${t('of')} ${count}`
                             }
