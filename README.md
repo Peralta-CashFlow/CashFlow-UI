@@ -14,6 +14,7 @@ This is the React application responsible for all the front-end pages and functi
         - [Security Information](#security-information)
     - [Category](#category)
         - [Category Registration](#category-registration)
+        - [Category Listing](#category-listing)
 - [Local Used Ports](#local-used-ports)
 
 # Features
@@ -69,6 +70,10 @@ On the category page click on the `+ Create Category` button, it will open a mod
 - name;
 - color;
 - emoji;
+
+### Category Listing
+
+It is a table on category page, you can filter the results by searching a name and also navigate between pages.
 
 # Local Used Ports
 
