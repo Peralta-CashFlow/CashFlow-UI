@@ -35,6 +35,17 @@ const BaseTable = <T extends Record<string, any>>({
 
     const { t } = useTranslation();
 
+    const renderCellContent = (header: TableHeader, row: T) => {
+        if (header.key === 'color') {
+            return (
+                <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ backgroundColor: row[header.key], width: 25, height: 25, borderRadius: 15 }} />
+                </div>
+            );
+        }
+        return row[header.key];
+    };
+
     const tableEmpty = () => {
         return (
             <TableRow>
@@ -116,13 +127,7 @@ const BaseTable = <T extends Record<string, any>>({
                                                     textAlign: 'center',
                                                     fontSize: rowFontSize,
                                                 }}>
-                                                {header.key === 'color' ? (
-                                                    <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
-                                                        <div style={{ backgroundColor: row[header.key], width: 25, height: 25, borderRadius: 15 }} />
-                                                    </div>
-                                                ) : (
-                                                    row[header.key]
-                                                )}
+                                                {renderCellContent(header, row)}
                                             </TableCell>
                                         ))}
                                     </TableRow>

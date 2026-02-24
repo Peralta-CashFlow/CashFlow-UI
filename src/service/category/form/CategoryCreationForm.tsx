@@ -41,10 +41,10 @@ export const useCategoryCreationFormik = (
                 values
             );
             formikHelpers.resetForm();
-            if (page !== 0) {
-                setPage(0);
-            } else {
+            if (page === 0) {
                 fetchCategories();
+            } else {
+                setPage(0);
             }
             handleClose();
             toaster(t('create-category-success'), 5000, 'success', 'filled');
