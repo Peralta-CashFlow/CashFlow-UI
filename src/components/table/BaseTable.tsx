@@ -1,4 +1,5 @@
-import { Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Paper, CircularProgress, Box, TablePagination, TableFooter } from "@mui/material"
+import { Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Paper, CircularProgress, Box, TablePagination, TableFooter, IconButton } from "@mui/material"
+import EditIcon from '@mui/icons-material/Edit';
 import TableHeader from '../../dto/table/TableHeader';
 import { useTranslation } from "react-i18next";
 
@@ -21,7 +22,9 @@ interface BaseTableProps<T> {
     changePage?: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void
     pageCount?: number,
     rowsPerPage?: number,
-    page?: number
+    page?: number,
+    hasEdition?: boolean,
+    editAction?: (row: T) => void
 }
 
 const BaseTable = <T extends Record<string, any>>({
@@ -30,7 +33,8 @@ const BaseTable = <T extends Record<string, any>>({
     headerBackGroundColor, headerFontColor,
     headerFontSize, rowBackGroundColor, rowFontColor,
     borderColor, changePage = () => null, pageCount = 0,
-    rowsPerPage = 10, page = 0, rowFontSize
+    rowsPerPage = 10, page = 0, rowFontSize, hasEdition = false,
+    editAction = () => null as any
 }: BaseTableProps<T>) => {
 
     const { t } = useTranslation();
@@ -97,6 +101,15 @@ const BaseTable = <T extends Record<string, any>>({
                                     {header.label}
                                 </TableCell>
                             )))}
+
+                            {hasEdition &&
+                                <TableCell
+                                    sx={{
+                                        backgroundColor: headerBackGroundColor,
+                                        width: 0
+                                    }}
+                                />
+                            }
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -130,6 +143,18 @@ const BaseTable = <T extends Record<string, any>>({
                                                 {renderCellContent(header, row)}
                                             </TableCell>
                                         ))}
+
+                                        {hasEdition && (
+                                            <TableCell
+                                                sx={{
+                                                    backgroundColor: rowBackGroundColor
+                                                }}
+                                            >
+                                                <IconButton onClick={() => editAction(row)}>
+                                                    <EditIcon fontSize="small" sx={{color: rowFontColor}}/>
+                                                </IconButton>
+                                            </TableCell>
+                                        )}
                                     </TableRow>
                                 ))
                             ) : (

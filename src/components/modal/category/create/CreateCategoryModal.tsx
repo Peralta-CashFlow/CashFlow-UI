@@ -1,14 +1,14 @@
-import styles from './CategoryModal.module.css'
+import styles from './CreateCategoryModal.module.css'
 
 import { useTranslation } from 'react-i18next'
 import { Box, Modal } from "@mui/material"
-import BaseTextField from '../../textfield/BaseTextField'
-import BaseButton from '../../button/BaseButton'
-import colors from '../../../assets/colors/colors'
-import BaseEmojiPicker from '../../pickers/emoji/BaseEmojiPicker'
-import { useCategoryCreationFormik } from '../../../service/category/form/CategoryCreationForm'
+import BaseTextField from '../../../textfield/BaseTextField'
+import BaseButton from '../../../button/BaseButton'
+import colors from '../../../../assets/colors/colors'
+import BaseEmojiPicker from '../../../pickers/emoji/BaseEmojiPicker'
+import { useCategoryCreationFormik } from '../../../../service/category/form/CategoryCreationForm'
 import { useState } from 'react'
-import BaseColorPicker from '../../pickers/color/BaseColorPicker'
+import BaseColorPicker from '../../../pickers/color/BaseColorPicker'
 
 
 interface CategoryModalProps {
@@ -19,7 +19,7 @@ interface CategoryModalProps {
     fetchCategories: () => void
 }
 
-const CategoryModal: React.FC<CategoryModalProps> = ({
+const CreateCategoryModal: React.FC<CategoryModalProps> = ({
     open, handleClose, page, setPage, fetchCategories
 }) => {
 
@@ -79,4 +79,4 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
 
 }
 
-export default CategoryModal;
+export default CreateCategoryModal;

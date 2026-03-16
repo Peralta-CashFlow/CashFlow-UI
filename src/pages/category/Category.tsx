@@ -12,13 +12,14 @@ import TableHeader from '../../dto/table/TableHeader';
 import { useEffect, useState } from 'react';
 import { CategoryResponse } from '../../dto/category/CategoryResponse';
 import BaseTable from '../../components/table/BaseTable';
-import CategoryModal from '../../components/modal/category/CategoryModal';
+import CreateCategoryModal from '../../components/modal/category/create/CreateCategoryModal';
 import { useToaster } from '../../components/toaster/ToasterProvider';
 import { handleError } from '../../utils/error/ErrorHandler';
 import categoryService from '../../service/category/CategoryService';
 import { useInternationalizationStore } from '../../stores/internationalization/InternationalizationStore';
 import { useUserStore } from '../../stores/user/UserStore';
 import { PageResponse } from '../../dto/page/PageResponse';
+import EditCategoryModal from '../../components/modal/category/edit/EditCategoryModal';
 
 const Category: React.FC = () => {
 
@@ -34,7 +35,9 @@ const Category: React.FC = () => {
 
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState<PageResponse<CategoryResponse>>(new PageResponse<CategoryResponse>([], 0, pageSize, 0, 0));
-    const [modalOpen, setModalOpen] = useState(false);
+    
+    const [createModalOpen, setCreateModalOpen] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
 
     const tableHeaders: TableHeader[] = [
         { label: t('name'), key: 'name' },
@@ -57,6 +60,11 @@ const Category: React.FC = () => {
             toaster(handleError(error), 5000, 'error', 'filled');
         }
         setLoading(false);
+    }
+
+    const handleEditionClick = async (row: CategoryResponse) => {
+        console.log(row);
+        setEditModalOpen(true);
     }
 
     useEffect(() => {
@@ -97,7 +105,7 @@ const Category: React.FC = () => {
                     fontWeight='bolder'
                     icon={AddCircleOutlineRoundedIcon}
                     fontSize='15px'
-                    onClick={() => setModalOpen(true)}
+                    onClick={() => setCreateModalOpen(true)}
                 />
             </div>
             <div className={styles.table}>
@@ -121,14 +129,20 @@ const Category: React.FC = () => {
                     rowsPerPage={pageSize}
                     pageCount={categories.totalElements}
                     rowFontSize='18px'
+                    hasEdition={true}
+                    editAction={(row: CategoryResponse) => handleEditionClick(row)}
                 />
             </div>
-            <CategoryModal
-                open={modalOpen}
-                handleClose={() => setModalOpen(false)}
+            <CreateCategoryModal
+                open={createModalOpen}
+                handleClose={() => setCreateModalOpen(false)}
                 setPage={setPage}
                 fetchCategories={fetchCategories}
                 page={page}
+            />
+            <EditCategoryModal
+                open={editModalOpen}
+                handleClose={() => setEditModalOpen(false)}
             />
         </div>
     )

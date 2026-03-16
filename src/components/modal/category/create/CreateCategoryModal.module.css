@@ -1,4 +1,4 @@
-@import '../../../assets/colors/colors.css';
+@import '../../../../assets/colors/colors.css';
 
 .modal {
     background-color: var(--light-gray);
