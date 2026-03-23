@@ -36,6 +36,19 @@ class CategoryService {
         return response.data;
     }
 
+    async getCategory(language: string, authorization: string, categoryId: number): Promise<CategoryResponse> {
+        const response = await axios.get(
+            `${this.categoryApiUrl}/${categoryId}`,
+            {
+                headers: {
+                    'Accept-Language': language,
+                    'Authorization': authorization
+                }
+            }
+        )
+        return response.data;
+    }
+
 }
 
 const categoryService = new CategoryService();

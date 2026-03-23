@@ -2,6 +2,8 @@ import { Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Paper
 import EditIcon from '@mui/icons-material/Edit';
 import TableHeader from '../../dto/table/TableHeader';
 import { useTranslation } from "react-i18next";
+import TableEditionField from "../../dto/table/TableEditionField";
+import BaseTextField from "../textfield/BaseTextField";
 
 interface BaseTableProps<T> {
     headers: TableHeader[]
@@ -24,7 +26,10 @@ interface BaseTableProps<T> {
     rowsPerPage?: number,
     page?: number,
     hasEdition?: boolean,
-    editAction?: (row: T) => void
+    editAction?: (row: T) => void,
+    pagination?: boolean,
+    paperBackground?: string,
+    editableFields?: TableEditionField[]
 }
 
 const BaseTable = <T extends Record<string, any>>({
@@ -34,12 +39,13 @@ const BaseTable = <T extends Record<string, any>>({
     headerFontSize, rowBackGroundColor, rowFontColor,
     borderColor, changePage = () => null, pageCount = 0,
     rowsPerPage = 10, page = 0, rowFontSize, hasEdition = false,
-    editAction = () => null as any
+    editAction = () => null as any, pagination = true, paperBackground,
+    editableFields = []
 }: BaseTableProps<T>) => {
 
     const { t } = useTranslation();
 
-    const renderCellContent = (header: TableHeader, row: T) => {
+    const renderCellContent = (header: TableHeader, row: T, rowIndex: number) => {
         if (header.key === 'color') {
             return (
                 <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
@@ -47,6 +53,30 @@ const BaseTable = <T extends Record<string, any>>({
                 </div>
             );
         }
+
+        const field = editableFields.find(field => field.fieldName === header.key);
+
+        if (field) {
+            return (
+                <BaseTextField
+                    label=''
+                    fieldName={`tags[${rowIndex}].${header.key}`}
+                    type="text"
+                    value={row[header.key]}
+                    onChange={(e) => {
+                        if (e.target.value.length <= field.fieldMaxLength) {
+                            field.onChange(e, rowIndex)
+                        }
+                    }}
+                    error={row[header.key].length == 0}
+                    helperText={field.helperText}
+                    fontSize={rowFontSize}
+                    required={true}
+                    variant='standard'
+                />
+            )
+        }
+
         return row[header.key];
     };
 
@@ -75,7 +105,9 @@ const BaseTable = <T extends Record<string, any>>({
 
     return (
         <Paper sx={{
-            width: width, maxHeight: height, overflow: overflow
+            width: width, maxHeight: height,
+            overflow: overflow, backgroundColor: paperBackground,
+            boxShadow: 'none'
         }}>
             <TableContainer
                 sx={{
@@ -95,7 +127,9 @@ const BaseTable = <T extends Record<string, any>>({
                                         color: headerFontColor,
                                         fontWeight: 'bolder',
                                         fontSize: headerFontSize,
-                                        textAlign: 'center'
+                                        textAlign: 'center',
+                                        borderRight: '0px solid white',
+                                        borderLeft: '0px solid white'
                                     }}
                                 >
                                     {header.label}
@@ -103,6 +137,8 @@ const BaseTable = <T extends Record<string, any>>({
                             )))}
 
                             {hasEdition &&
+                                !loading &&
+                                rows.length > 0 &&
                                 <TableCell
                                     sx={{
                                         backgroundColor: headerBackGroundColor,
@@ -129,7 +165,7 @@ const BaseTable = <T extends Record<string, any>>({
                             </TableRow>
                         ) :
                             rows.length > 0 ? (
-                                rows.map((row) => (
+                                rows.map((row, rowIndex) => (
                                     <TableRow key={row[rowKey] as React.Key}>
                                         {headers.map((header) => (
                                             <TableCell
@@ -140,7 +176,7 @@ const BaseTable = <T extends Record<string, any>>({
                                                     textAlign: 'center',
                                                     fontSize: rowFontSize,
                                                 }}>
-                                                {renderCellContent(header, row)}
+                                                {renderCellContent(header, row, rowIndex)}
                                             </TableCell>
                                         ))}
 
@@ -151,7 +187,7 @@ const BaseTable = <T extends Record<string, any>>({
                                                 }}
                                             >
                                                 <IconButton onClick={() => editAction(row)}>
-                                                    <EditIcon fontSize="small" sx={{color: rowFontColor}}/>
+                                                    <EditIcon fontSize="small" sx={{ color: rowFontColor }} />
                                                 </IconButton>
                                             </TableCell>
                                         )}
@@ -162,27 +198,31 @@ const BaseTable = <T extends Record<string, any>>({
                             )
                         }
                     </TableBody>
-                    <TableFooter>
-                        <TablePagination
-                            rowsPerPageOptions={[]}
-                            count={pageCount}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            onPageChange={(e, newPage) => changePage(e, newPage)}
-                            labelDisplayedRows={({ from, to, count }) =>
-                                `${from}-${to} ${t('of')} ${count}`
-                            }
-                            sx={{
-                                overflow: 'hidden',
-                                backgroundColor: headerBackGroundColor,
-                                color: headerFontColor,
-                                '& .MuiTablePagination-toolbar': {
-                                    minHeight: 18,
-                                    height: 18
-                                }
-                            }}
-                        />
-                    </TableFooter>
+                    {pagination &&
+                        <TableFooter>
+                            <TableRow>
+                                <TablePagination
+                                    rowsPerPageOptions={[]}
+                                    count={pageCount}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onPageChange={(e, newPage) => changePage(e, newPage)}
+                                    labelDisplayedRows={({ from, to, count }) =>
+                                        `${from}-${to} ${t('of')} ${count}`
+                                    }
+                                    sx={{
+                                        overflow: 'hidden',
+                                        backgroundColor: headerBackGroundColor,
+                                        color: headerFontColor,
+                                        '& .MuiTablePagination-toolbar': {
+                                            minHeight: 18,
+                                            height: 18
+                                        }
+                                    }}
+                                />
+                            </TableRow>
+                        </TableFooter>
+                    }
                 </Table>
             </TableContainer>
         </Paper>

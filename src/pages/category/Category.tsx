@@ -37,7 +37,8 @@ const Category: React.FC = () => {
     const [categories, setCategories] = useState<PageResponse<CategoryResponse>>(new PageResponse<CategoryResponse>([], 0, pageSize, 0, 0));
     
     const [createModalOpen, setCreateModalOpen] = useState(false);
-    const [editModalOpen, setEditModalOpen] = useState(false);
+
+    const [editCategoryId, setEditCategoryId] = useState(0);
 
     const tableHeaders: TableHeader[] = [
         { label: t('name'), key: 'name' },
@@ -60,11 +61,6 @@ const Category: React.FC = () => {
             toaster(handleError(error), 5000, 'error', 'filled');
         }
         setLoading(false);
-    }
-
-    const handleEditionClick = async (row: CategoryResponse) => {
-        console.log(row);
-        setEditModalOpen(true);
     }
 
     useEffect(() => {
@@ -130,7 +126,7 @@ const Category: React.FC = () => {
                     pageCount={categories.totalElements}
                     rowFontSize='18px'
                     hasEdition={true}
-                    editAction={(row: CategoryResponse) => handleEditionClick(row)}
+                    editAction={(row: CategoryResponse) => setEditCategoryId(row.id)}
                 />
             </div>
             <CreateCategoryModal
@@ -141,8 +137,8 @@ const Category: React.FC = () => {
                 page={page}
             />
             <EditCategoryModal
-                open={editModalOpen}
-                handleClose={() => setEditModalOpen(false)}
+                editCategoryId={editCategoryId}
+                setEditCategoryId={setEditCategoryId}
             />
         </div>
     )

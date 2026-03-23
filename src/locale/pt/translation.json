@@ -71,5 +71,8 @@
     "of": "de",
     "category-name-required": "Nome da categoria não deve ser vazio.",
     "category-name-too-long": "Nome da categoria deve ter no máximo 20 caracteres.",
-    "create-category-success": "Categoria criada com sucesso."
+    "create-category-success": "Categoria criada com sucesso.",
+    "tag-name-required": "Nome da tag não deve ser vazio.",
+    "edit-category": "Editar Categoria",
+    "edit-category-success": "Categoria editada com sucesso."
 }
