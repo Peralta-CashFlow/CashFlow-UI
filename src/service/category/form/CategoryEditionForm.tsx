@@ -5,6 +5,8 @@ import { useInternationalizationStore } from '../../../stores/internationalizati
 import { useUserStore } from '../../../stores/user/UserStore';
 import { CategoryResponse } from '../../../dto/category/CategoryResponse';
 import { useFormik } from 'formik';
+import CategoryService from '../CategoryService';
+import { handleError } from '../../../utils/error/ErrorHandler';
 
 export const useCategoryEditionFormik = (
     setLoading: (loading: boolean) => void
@@ -22,12 +24,23 @@ export const useCategoryEditionFormik = (
     })
 
     const handleFormSubmit = async (
-        values: CategoryResponse,
+        value: CategoryResponse,
         formikHelpers: any,
         setLoading: (loading: boolean) => void,
         toaster: (message: string, autoHideDuration?: number, severity?: Severity, variant?: Variant) => void
     ) => {
         setLoading(true);
+        try {
+            const response = await CategoryService.updateCategory(
+                internationalization.language,
+                user.jwt,
+                value
+            );
+            formikHelpers.setValues(response);
+            toaster(t('edit-category-success'), 5000, 'success', 'filled');
+        } catch (error) {
+            toaster(handleError(error), 5000, 'error', 'filled');
+        }
         setLoading(false);
     }
 
@@ -42,8 +55,8 @@ export const useCategoryEditionFormik = (
 
         validationSchema: EditCategoryFormDataValidation,
 
-        onSubmit: (values: CategoryResponse, formikHelpers) => {
-            handleFormSubmit(values, formikHelpers, setLoading, toaster);
+        onSubmit: (value: CategoryResponse, formikHelpers) => {
+            handleFormSubmit(value, formikHelpers, setLoading, toaster);
         }
     })
 

@@ -49,6 +49,21 @@ class CategoryService {
         return response.data;
     }
 
+    async updateCategory(language: string, authorization: string, value: CategoryResponse): Promise<CategoryResponse> {
+        const response = await axios.patch(
+            this.categoryApiUrl,
+            JSON.stringify(value),
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept-Language': language,
+                    'Authorization': authorization
+                }
+            }
+        )
+        return response.data;
+    }
+
 }
 
 const categoryService = new CategoryService();
