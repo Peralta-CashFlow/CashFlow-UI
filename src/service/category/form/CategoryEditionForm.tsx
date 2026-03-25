@@ -9,7 +9,8 @@ import CategoryService from '../CategoryService';
 import { handleError } from '../../../utils/error/ErrorHandler';
 
 export const useCategoryEditionFormik = (
-    setLoading: (loading: boolean) => void
+    setLoading: (loading: boolean) => void,
+    fetchCategories: () => void
 ) => {
 
     const { t } = useTranslation();
@@ -27,7 +28,8 @@ export const useCategoryEditionFormik = (
         value: CategoryResponse,
         formikHelpers: any,
         setLoading: (loading: boolean) => void,
-        toaster: (message: string, autoHideDuration?: number, severity?: Severity, variant?: Variant) => void
+        toaster: (message: string, autoHideDuration?: number, severity?: Severity, variant?: Variant) => void,
+        fetchCategories: () => void
     ) => {
         setLoading(true);
         try {
@@ -37,6 +39,7 @@ export const useCategoryEditionFormik = (
                 value
             );
             formikHelpers.setValues(response);
+            fetchCategories();
             toaster(t('edit-category-success'), 5000, 'success', 'filled');
         } catch (error) {
             toaster(handleError(error), 5000, 'error', 'filled');
@@ -56,7 +59,7 @@ export const useCategoryEditionFormik = (
         validationSchema: EditCategoryFormDataValidation,
 
         onSubmit: (value: CategoryResponse, formikHelpers) => {
-            handleFormSubmit(value, formikHelpers, setLoading, toaster);
+            handleFormSubmit(value, formikHelpers, setLoading, toaster, fetchCategories);
         }
     })
 

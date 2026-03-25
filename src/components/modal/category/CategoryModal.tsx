@@ -1,30 +1,31 @@
-import styles from './EditCategoryModal.module.css'
-import colors from '../../../../assets/colors/colors';
+import styles from './CategoryModal.module.css'
+import colors from '../../../assets/colors/colors';
 
 import { Box, CircularProgress, Modal } from "@mui/material";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useCategoryEditionFormik } from "../../../../service/category/form/CategoryEditionForm";
-import CategoryService from "../../../../service/category/CategoryService";
+import { useCategoryEditionFormik } from "../../../service/category/form/CategoryEditionForm";
+import CategoryService from "../../../service/category/CategoryService";
 import { useTranslation } from "react-i18next";
-import { useUserStore } from "../../../../stores/user/UserStore";
-import { useInternationalizationStore } from "../../../../stores/internationalization/InternationalizationStore";
-import BaseTextField from "../../../textfield/BaseTextField";
-import BaseColorPicker from "../../../pickers/color/BaseColorPicker";
-import BaseEmojiPicker from "../../../pickers/emoji/BaseEmojiPicker";
-import BaseTable from "../../../table/BaseTable";
-import TableHeader from "../../../../dto/table/TableHeader";
-import BaseButton from '../../../button/BaseButton';
+import { useUserStore } from "../../../stores/user/UserStore";
+import { useInternationalizationStore } from "../../../stores/internationalization/InternationalizationStore";
+import BaseTextField from "../../textfield/BaseTextField";
+import BaseColorPicker from "../../pickers/color/BaseColorPicker";
+import BaseEmojiPicker from "../../pickers/emoji/BaseEmojiPicker";
+import BaseTable from "../../table/BaseTable";
+import TableHeader from "../../../dto/table/TableHeader";
+import BaseButton from '../../button/BaseButton';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 
-interface EditCategoryModalProps {
+interface CategoryModalProps {
     editCategoryId: number,
-    setEditCategoryId: Dispatch<SetStateAction<number>>
+    setEditCategoryId: Dispatch<SetStateAction<number>>,
+    fetchCategories: () => void
 }
 
-const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
-    editCategoryId, setEditCategoryId
+const CategoryModal: React.FC<CategoryModalProps> = ({
+    editCategoryId, setEditCategoryId, fetchCategories
 }) => {
 
     const [loading, setLoading] = useState(false);
@@ -33,7 +34,7 @@ const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
         return editCategoryId != 0;
     }
 
-    const editCategoryFormik = useCategoryEditionFormik(setLoading);
+    const editCategoryFormik = useCategoryEditionFormik(setLoading, fetchCategories);
     const language = useInternationalizationStore().language;
     const user = useUserStore().user;
     const { t } = useTranslation();
@@ -232,4 +233,4 @@ const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
     )
 }
 
-export default EditCategoryModal;
+export default CategoryModal;

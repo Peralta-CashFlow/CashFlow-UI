@@ -19,7 +19,7 @@ import categoryService from '../../service/category/CategoryService';
 import { useInternationalizationStore } from '../../stores/internationalization/InternationalizationStore';
 import { useUserStore } from '../../stores/user/UserStore';
 import { PageResponse } from '../../dto/page/PageResponse';
-import EditCategoryModal from '../../components/modal/category/edit/EditCategoryModal';
+import CategoryModal from '../../components/modal/category/CategoryModal';
 
 const Category: React.FC = () => {
 
@@ -136,9 +136,10 @@ const Category: React.FC = () => {
                 fetchCategories={fetchCategories}
                 page={page}
             />
-            <EditCategoryModal
+            <CategoryModal
                 editCategoryId={editCategoryId}
                 setEditCategoryId={setEditCategoryId}
+                fetchCategories={fetchCategories}
             />
         </div>
     )
