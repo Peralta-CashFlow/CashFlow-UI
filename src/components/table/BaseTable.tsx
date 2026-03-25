@@ -1,6 +1,7 @@
 import { Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Paper, CircularProgress, Box, TablePagination, TableFooter, IconButton } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import TableHeader from '../../dto/table/TableHeader';
 import { useTranslation } from "react-i18next";
 import TableEditionField from "../../dto/table/TableEditionField";
@@ -33,7 +34,9 @@ interface BaseTableProps<T> {
     editableFields?: TableEditionField[],
     emptyFontSize?: string,
     canAddRow?: boolean,
-    addRowAction?: () => void
+    addRowAction?: () => void,
+    canDeleteRow?: boolean,
+    deleteRowAction?: (index: number) => void
 }
 
 const BaseTable = <T extends Record<string, any>>({
@@ -45,7 +48,7 @@ const BaseTable = <T extends Record<string, any>>({
     rowsPerPage = 10, page = 0, rowFontSize, hasEdition = false,
     editAction = () => null as any, pagination = true, paperBackground,
     editableFields = [], emptyFontSize = '15px', canAddRow = false,
-    addRowAction
+    addRowAction, canDeleteRow = false, deleteRowAction
 }: BaseTableProps<T>) => {
 
     const { t } = useTranslation();
@@ -62,6 +65,7 @@ const BaseTable = <T extends Record<string, any>>({
         const field = editableFields.find(field => field.fieldName === header.key);
 
         if (field) {
+            let helperText = field.helperText?.(rowIndex);
             return (
                 <BaseTextField
                     label=''
@@ -73,8 +77,8 @@ const BaseTable = <T extends Record<string, any>>({
                             field.onChange(e, rowIndex)
                         }
                     }}
-                    error={row[header.key].length == 0}
-                    helperText={field.helperText}
+                    error={helperText !== ''}
+                    helperText={helperText}
                     fontSize={rowFontSize}
                     required={true}
                     variant='standard'
@@ -112,7 +116,8 @@ const BaseTable = <T extends Record<string, any>>({
         <Paper sx={{
             width: width, maxHeight: height,
             overflow: overflow, backgroundColor: paperBackground,
-            boxShadow: 'none'
+            boxShadow: 'none',
+            position: 'relative'
         }}>
             <TableContainer
                 sx={{
@@ -120,12 +125,10 @@ const BaseTable = <T extends Record<string, any>>({
                     overflow: overflow
                 }}>
                 <Table stickyHeader sx={{
-                    border: `1px solid ${borderColor}`,
+                    border: `1px solid ${borderColor}`
                 }}>
                     <TableHead>
-                        <TableRow sx={{
-                            position: 'relative'
-                        }}>
+                        <TableRow>
                             {headers.map((header => (
                                 <TableCell
                                     key={header.key}
@@ -153,20 +156,15 @@ const BaseTable = <T extends Record<string, any>>({
                                     }}
                                 />
                             }
-                            {canAddRow &&
-                                <div onClick={addRowAction}>
-                                    <AddIcon
-                                        fontSize='large'
-                                        sx={{
-                                            position: 'absolute',
-                                            zIndex: 2,
-                                            right: 15,
-                                            top: 10,
-                                            color: headerFontColor,
-                                            cursor: 'pointer'
-                                        }}
-                                    />
-                                </div>
+                            {canDeleteRow &&
+                                !loading &&
+                                rows.length > 0 &&
+                                <TableCell
+                                    sx={{
+                                        backgroundColor: headerBackGroundColor,
+                                        width: 0
+                                    }}
+                                />
                             }
                         </TableRow>
                     </TableHead>
@@ -196,12 +194,11 @@ const BaseTable = <T extends Record<string, any>>({
                                                     backgroundColor: rowBackGroundColor,
                                                     color: rowFontColor,
                                                     textAlign: 'center',
-                                                    fontSize: rowFontSize,
+                                                    fontSize: rowFontSize
                                                 }}>
                                                 {renderCellContent(header, row, rowIndex)}
                                             </TableCell>
                                         ))}
-
                                         {hasEdition && (
                                             <TableCell
                                                 sx={{
@@ -209,7 +206,18 @@ const BaseTable = <T extends Record<string, any>>({
                                                 }}
                                             >
                                                 <IconButton onClick={() => editAction(row)}>
-                                                    <EditIcon fontSize="small" sx={{ color: rowFontColor }} />
+                                                    <EditIcon fontSize="medium" sx={{ color: rowFontColor }} />
+                                                </IconButton>
+                                            </TableCell>
+                                        )}
+                                        {canDeleteRow && (
+                                            <TableCell
+                                                sx={{
+                                                    backgroundColor: rowBackGroundColor
+                                                }}
+                                            >
+                                                <IconButton onClick={() => deleteRowAction?.(rowIndex)}>
+                                                    <DeleteOutlineIcon fontSize="medium" sx={{ color: rowFontColor }} />
                                                 </IconButton>
                                             </TableCell>
                                         )}
@@ -247,6 +255,23 @@ const BaseTable = <T extends Record<string, any>>({
                     }
                 </Table>
             </TableContainer>
+
+            {canAddRow &&
+                <div onClick={addRowAction}>
+                    <AddIcon
+                        fontSize='medium'
+                        sx={{
+                            position: 'absolute',
+                            zIndex: 3,
+                            right: 25,
+                            top: 15,
+                            color: headerFontColor,
+                            cursor: 'pointer'
+                        }}
+                    />
+                </div>
+            }
+
         </Paper>
     )
 }

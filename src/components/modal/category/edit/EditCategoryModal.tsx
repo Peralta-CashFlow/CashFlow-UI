@@ -13,6 +13,10 @@ import BaseColorPicker from "../../../pickers/color/BaseColorPicker";
 import BaseEmojiPicker from "../../../pickers/emoji/BaseEmojiPicker";
 import BaseTable from "../../../table/BaseTable";
 import TableHeader from "../../../../dto/table/TableHeader";
+import BaseButton from '../../../button/BaseButton';
+import CancelIcon from '@mui/icons-material/Cancel';
+import SaveIcon from '@mui/icons-material/Save';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface EditCategoryModalProps {
     editCategoryId: number,
@@ -52,6 +56,35 @@ const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
         }
     }
 
+    const removeTag = (index: number) => {
+        const updatedTags = editCategoryFormik.values.tags.filter((_, i) => i !== index);
+        editCategoryFormik.setFieldValue('tags', updatedTags);
+    }
+
+    const closeModal = () => {
+        editCategoryFormik.resetForm();
+        setEditCategoryId(0);
+    }
+
+    const defineHelperText = (index: number) => {
+
+        let helperText = '';
+
+        const tags = editCategoryFormik.values.tags;
+        const currentValue = tags[index]?.name?.trim();
+
+        const isDuplicate = tags.filter(
+            (tag, i) =>
+                tag.name?.trim().toLowerCase() === currentValue.toLowerCase() &&
+                i !== index
+        ).length > 0;
+
+        if (!currentValue) helperText = t('tag-name-required');
+        else if (isDuplicate) helperText = t('tag-name-duplicated')
+
+        return helperText;
+    }
+
     useEffect(() => {
         const fetchCategory = async () => {
             if (categorySelected()) {
@@ -67,7 +100,7 @@ const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
     return (
         <Modal
             open={categorySelected()}
-            onClose={() => setEditCategoryId(0)}
+            onClose={closeModal}
         >
             <Box
                 className={styles.modal}
@@ -132,6 +165,8 @@ const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
                                     emptyFontSize='9px'
                                     canAddRow={isTagListFull}
                                     addRowAction={addTag}
+                                    canDeleteRow={true}
+                                    deleteRowAction={(index: number) => removeTag(index)}
                                     editableFields={[
                                         {
                                             fieldName: 'name',
@@ -142,14 +177,44 @@ const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
                                                     e.target.value
                                                 );
                                             },
-                                            helperText: t('tag-name-required')
+                                            helperText: defineHelperText
                                         }
                                     ]}
                                 />
                             </div>
                         </div>
                     </div>
+
+                    <div className={styles.buttonContainer}>
+                        <BaseButton
+                            text={t('save')}
+                            backGroundColor={colors.lightBlueGreen}
+                            fontSize='100%'
+                            type='submit'
+                            fontWeight='bolder'
+                            loading={loading}
+                            spinnerSize={20}
+                            icon={SaveIcon}
+                        />
+                        <BaseButton
+                            text={t('cancel')}
+                            backGroundColor={'red'}
+                            fontSize='100%'
+                            fontWeight='bold'
+                            type="button"
+                            icon={CancelIcon}
+                            onClick={() => closeModal()}
+                        />
+                    </div>
                 </form>
+
+                <div
+                    className={styles.close}
+                    onClick={closeModal}
+                >
+                    <CloseIcon fontSize='medium' />
+                </div>
+
             </Box>
         </Modal>
     )

@@ -1,6 +1,6 @@
 export default interface TableEditionField {
-    fieldName: string,
+    fieldName: string;
     fieldMaxLength: number;
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, rowIndex: number) => void,
-    helperText?: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, rowIndex: number) => void;
+    helperText: (rowIndex: number) => string;
 }

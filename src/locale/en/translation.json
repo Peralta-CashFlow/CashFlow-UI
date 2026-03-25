@@ -75,5 +75,6 @@
     "tag-name-required": "Tag name should not be empty",
     "edit-category": "Edit Category",
     "edit-category-success": "Category edited successfully.",
-    "category-without-tags": "There are no tags for this category."
+    "category-without-tags": "There are no tags for this category.",
+    "tag-name-duplicated": "Tags can not have the same name."
 }

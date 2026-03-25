@@ -75,5 +75,6 @@
     "tag-name-required": "Nome da tag não deve ser vazio.",
     "edit-category": "Editar Categoria",
     "edit-category-success": "Categoria editada com sucesso.",
-    "category-without-tags": "Não existem tags para esta categoria."
+    "category-without-tags": "Não existem tags para esta categoria.",
+    "tag-name-duplicated": "Tags não podem ter o mesmo nome."
 }
