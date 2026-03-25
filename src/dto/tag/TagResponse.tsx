@@ -1,4 +1,4 @@
 export interface TagResponse {
-    id: number,
+    id: number | undefined,
     name: string
 }

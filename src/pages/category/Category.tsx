@@ -110,8 +110,8 @@ const Category: React.FC = () => {
                     rows={categories.response}
                     rowKey={'id'}
                     width='80vw'
-                    height='62vh'
-                    overflow='auto'
+                    height='100%'
+                    overflow='hidden'
                     noDataFoundText={t('no-category-found')}
                     headerBackGroundColor={colors.lightGray}
                     headerFontColor={colors.white}

@@ -1,5 +1,6 @@
 import { Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Paper, CircularProgress, Box, TablePagination, TableFooter, IconButton } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 import TableHeader from '../../dto/table/TableHeader';
 import { useTranslation } from "react-i18next";
 import TableEditionField from "../../dto/table/TableEditionField";
@@ -29,7 +30,10 @@ interface BaseTableProps<T> {
     editAction?: (row: T) => void,
     pagination?: boolean,
     paperBackground?: string,
-    editableFields?: TableEditionField[]
+    editableFields?: TableEditionField[],
+    emptyFontSize?: string,
+    canAddRow?: boolean,
+    addRowAction?: () => void
 }
 
 const BaseTable = <T extends Record<string, any>>({
@@ -40,7 +44,8 @@ const BaseTable = <T extends Record<string, any>>({
     borderColor, changePage = () => null, pageCount = 0,
     rowsPerPage = 10, page = 0, rowFontSize, hasEdition = false,
     editAction = () => null as any, pagination = true, paperBackground,
-    editableFields = []
+    editableFields = [], emptyFontSize = '15px', canAddRow = false,
+    addRowAction
 }: BaseTableProps<T>) => {
 
     const { t } = useTranslation();
@@ -87,7 +92,7 @@ const BaseTable = <T extends Record<string, any>>({
                     sx={{
                         backgroundColor: rowBackGroundColor,
                         color: rowFontColor,
-                        fontSize: '15px',
+                        fontSize: emptyFontSize,
                         borderTop: `1px solid ${borderColor}`,
                     }}
                 >
@@ -118,7 +123,9 @@ const BaseTable = <T extends Record<string, any>>({
                     border: `1px solid ${borderColor}`,
                 }}>
                     <TableHead>
-                        <TableRow>
+                        <TableRow sx={{
+                            position: 'relative'
+                        }}>
                             {headers.map((header => (
                                 <TableCell
                                     key={header.key}
@@ -145,6 +152,21 @@ const BaseTable = <T extends Record<string, any>>({
                                         width: 0
                                     }}
                                 />
+                            }
+                            {canAddRow &&
+                                <div onClick={addRowAction}>
+                                    <AddIcon
+                                        fontSize='large'
+                                        sx={{
+                                            position: 'absolute',
+                                            zIndex: 2,
+                                            right: 15,
+                                            top: 10,
+                                            color: headerFontColor,
+                                            cursor: 'pointer'
+                                        }}
+                                    />
+                                </div>
                             }
                         </TableRow>
                     </TableHead>

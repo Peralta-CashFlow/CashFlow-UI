@@ -74,5 +74,6 @@
     "create-category-success": "Categoria criada com sucesso.",
     "tag-name-required": "Nome da tag não deve ser vazio.",
     "edit-category": "Editar Categoria",
-    "edit-category-success": "Categoria editada com sucesso."
+    "edit-category-success": "Categoria editada com sucesso.",
+    "category-without-tags": "Não existem tags para esta categoria."
 }

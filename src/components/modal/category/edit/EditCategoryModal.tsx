@@ -8,15 +8,11 @@ import CategoryService from "../../../../service/category/CategoryService";
 import { useTranslation } from "react-i18next";
 import { useUserStore } from "../../../../stores/user/UserStore";
 import { useInternationalizationStore } from "../../../../stores/internationalization/InternationalizationStore";
-import { CategoryResponse } from "../../../../dto/category/CategoryResponse";
 import BaseTextField from "../../../textfield/BaseTextField";
 import BaseColorPicker from "../../../pickers/color/BaseColorPicker";
 import BaseEmojiPicker from "../../../pickers/emoji/BaseEmojiPicker";
 import BaseTable from "../../../table/BaseTable";
 import TableHeader from "../../../../dto/table/TableHeader";
-import { error } from 'console';
-import { FormikErrors } from 'formik';
-import { TagResponse } from '../../../../dto/tag/TagResponse';
 
 interface EditCategoryModalProps {
     editCategoryId: number,
@@ -41,6 +37,20 @@ const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
     const tableHeaders: TableHeader[] = [
         { label: 'Tags', key: 'name' }
     ]
+
+    let isTagListFull = editCategoryFormik.values.tags.length < 10;
+
+    const addTag = () => {
+        if (isTagListFull) {
+            editCategoryFormik.setFieldValue('tags', [
+                ...editCategoryFormik.values.tags,
+                {
+                    id: undefined,
+                    name: ''
+                }
+            ])
+        }
+    }
 
     useEffect(() => {
         const fetchCategory = async () => {
@@ -101,37 +111,42 @@ const EditCategoryModal: React.FC<EditCategoryModalProps> = ({
                         </div>
 
                         <div className={styles.right}>
-                            <BaseTable
-                                headers={tableHeaders}
-                                rows={editCategoryFormik.values.tags}
-                                rowKey={'id'}
-                                width='70%'
-                                height='100%'
-                                overflow='auto'
-                                noDataFoundText=''
-                                pagination={false}
-                                headerBackGroundColor={colors.gray}
-                                headerFontColor={colors.white}
-                                headerFontSize='20px'
-                                rowBackGroundColor={colors.lighterGray}
-                                rowFontColor={colors.white}
-                                rowFontSize='15px'
-                                borderColor='black'
-                                paperBackground={colors.lightGray}
-                                editableFields={[
-                                    {
-                                        fieldName: 'name',
-                                        fieldMaxLength: 20,
-                                        onChange: (e, rowIndex) => {
-                                            editCategoryFormik.setFieldValue(
-                                                `tags[${rowIndex}].name`,
-                                                e.target.value
-                                            );
-                                        },
-                                        helperText: t('tag-name-required')
-                                    }
-                                ]}
-                            />
+                            <div className={styles.tableWrapper}>
+                                <BaseTable
+                                    headers={tableHeaders}
+                                    rows={editCategoryFormik.values.tags}
+                                    rowKey={'id'}
+                                    width='70%'
+                                    height='100%'
+                                    overflow='auto'
+                                    noDataFoundText={t('category-without-tags')}
+                                    pagination={false}
+                                    headerBackGroundColor={colors.gray}
+                                    headerFontColor={colors.white}
+                                    headerFontSize='20px'
+                                    rowBackGroundColor={colors.lighterGray}
+                                    rowFontColor={colors.white}
+                                    rowFontSize='15px'
+                                    borderColor='black'
+                                    paperBackground={colors.lightGray}
+                                    emptyFontSize='9px'
+                                    canAddRow={isTagListFull}
+                                    addRowAction={addTag}
+                                    editableFields={[
+                                        {
+                                            fieldName: 'name',
+                                            fieldMaxLength: 20,
+                                            onChange: (e, rowIndex) => {
+                                                editCategoryFormik.setFieldValue(
+                                                    `tags[${rowIndex}].name`,
+                                                    e.target.value
+                                                );
+                                            },
+                                            helperText: t('tag-name-required')
+                                        }
+                                    ]}
+                                />
+                            </div>
                         </div>
                     </div>
                 </form>
