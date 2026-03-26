@@ -1,20 +1,85 @@
 @import '../../../assets/colors/colors.css';
 
 .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: var(--light-gray);
-    width: 25%;
-    height: 100%;
-    position: fixed;
-    right: 0;
-    display: flex;
-    align-items: center;
-    padding-top: 2%;
-    flex-direction: column;
-    gap: 5%;
+    width: 80%;
+    height: 90%;
+    padding: 20px;
+    border-radius: 8px;
 }
 
-.form {
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4%;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+}
+
+.left {
+    width: 50%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 15px;
+}
+
+.right {
+    width: 50%;
+    height: 340px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.name {
+    width: 60%;
+}
+
+.icon {
+    width: 20%;
+}
+
+.tableWrapper {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonContainer {
+    margin-top: 4%;
+    display: flex;
+    gap: 10%
+}
+
+.close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 1400px) {
+    .modal {
+        height: 65%;
+        width: 60%;
+    }
 }

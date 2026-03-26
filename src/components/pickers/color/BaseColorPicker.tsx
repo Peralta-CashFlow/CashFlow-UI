@@ -4,17 +4,23 @@ import { HexColorPicker } from "react-colorful"
 interface BaseColorPicker {
     onChange: (newColor: string | undefined) => void,
     color: string | undefined,
-    label: string
+    label: string,
+    width?: string,
+    height?: string
 }
 
 const BaseColorPicker: React.FC<BaseColorPicker> = ({
-    onChange, color, label
+    onChange, color, label, width, height
 }) => {
     return (
         <div className={styles.container}>
             <HexColorPicker
                 color={color}
                 onChange={onChange}
+                style={{
+                    width: width,
+                    height: height
+                }}
             />
             <div className={styles.colorTextContainer}>
                 {color != undefined &&

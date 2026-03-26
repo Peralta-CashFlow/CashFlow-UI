@@ -12,13 +12,14 @@ import TableHeader from '../../dto/table/TableHeader';
 import { useEffect, useState } from 'react';
 import { CategoryResponse } from '../../dto/category/CategoryResponse';
 import BaseTable from '../../components/table/BaseTable';
-import CategoryModal from '../../components/modal/category/CategoryModal';
+import CreateCategoryModal from '../../components/modal/category/create/CreateCategoryModal';
 import { useToaster } from '../../components/toaster/ToasterProvider';
 import { handleError } from '../../utils/error/ErrorHandler';
 import categoryService from '../../service/category/CategoryService';
 import { useInternationalizationStore } from '../../stores/internationalization/InternationalizationStore';
 import { useUserStore } from '../../stores/user/UserStore';
 import { PageResponse } from '../../dto/page/PageResponse';
+import CategoryModal from '../../components/modal/category/CategoryModal';
 
 const Category: React.FC = () => {
 
@@ -34,7 +35,10 @@ const Category: React.FC = () => {
 
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState<PageResponse<CategoryResponse>>(new PageResponse<CategoryResponse>([], 0, pageSize, 0, 0));
-    const [modalOpen, setModalOpen] = useState(false);
+    
+    const [createModalOpen, setCreateModalOpen] = useState(false);
+
+    const [editCategoryId, setEditCategoryId] = useState(0);
 
     const tableHeaders: TableHeader[] = [
         { label: t('name'), key: 'name' },
@@ -97,7 +101,7 @@ const Category: React.FC = () => {
                     fontWeight='bolder'
                     icon={AddCircleOutlineRoundedIcon}
                     fontSize='15px'
-                    onClick={() => setModalOpen(true)}
+                    onClick={() => setCreateModalOpen(true)}
                 />
             </div>
             <div className={styles.table}>
@@ -106,8 +110,8 @@ const Category: React.FC = () => {
                     rows={categories.response}
                     rowKey={'id'}
                     width='80vw'
-                    height='62vh'
-                    overflow='auto'
+                    height='100%'
+                    overflow='hidden'
                     noDataFoundText={t('no-category-found')}
                     headerBackGroundColor={colors.lightGray}
                     headerFontColor={colors.white}
@@ -121,14 +125,21 @@ const Category: React.FC = () => {
                     rowsPerPage={pageSize}
                     pageCount={categories.totalElements}
                     rowFontSize='18px'
+                    hasEdition={true}
+                    editAction={(row: CategoryResponse) => setEditCategoryId(row.id)}
                 />
             </div>
-            <CategoryModal
-                open={modalOpen}
-                handleClose={() => setModalOpen(false)}
+            <CreateCategoryModal
+                open={createModalOpen}
+                handleClose={() => setCreateModalOpen(false)}
                 setPage={setPage}
                 fetchCategories={fetchCategories}
                 page={page}
+            />
+            <CategoryModal
+                editCategoryId={editCategoryId}
+                setEditCategoryId={setEditCategoryId}
+                fetchCategories={fetchCategories}
             />
         </div>
     )

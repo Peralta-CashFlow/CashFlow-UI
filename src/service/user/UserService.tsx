@@ -22,10 +22,9 @@ class UserService {
     }
 
     async loginUser(userData: UserLoginFormData, language: string) {
-        const response = await axios.get(
-            this.authUserUrl + '/login?' +
-            'email=' + userData.email + '&' +
-            'password=' + userData.password,
+        const response = await axios.post(
+            this.authUserUrl + '/login?',
+            JSON.stringify(userData),
             {
                 headers: {
                     'Accept-Language': language,

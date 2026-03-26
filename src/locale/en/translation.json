@@ -63,7 +63,7 @@
     "registrations": "Registrations",
     "categories": "Categories",
     "search-categories": "Search categories...",
-    "create-categorie": "Create Categorie",
+    "create-categorie": "Create Category",
     "name": "Name",
     "color": "Color",
     "icon": "Icon",
@@ -71,5 +71,13 @@
     "of": "of",
     "category-name-required": "Category name should not be empty.",
     "category-name-too-long": "Category name must have at most 20 characters.",
-    "create-category-success": "Category created successfully."
+    "create-category-success": "Category created successfully.",
+    "tag-name-required": "Tag name should not be empty",
+    "edit-category": "Edit Category",
+    "edit-category-success": "Category edited successfully.",
+    "category-without-tags": "There are no tags for this category.",
+    "tag-name-duplicated": "Tags can not have the same name.",
+    "confirm": "Confirm",
+    "confirmation": "Confirmation",
+    "confirm-category-edition-text": "If you delete any tag, it will be removed from all related information."
 }
