@@ -17,6 +17,7 @@ import BaseButton from '../../button/BaseButton';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
+import ConfirmationDialog from '../../dialog/confirmation/ConfirmationDialog';
 
 interface CategoryModalProps {
     editCategoryId: number,
@@ -29,6 +30,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
 }) => {
 
     const [loading, setLoading] = useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
 
     const categorySelected = () => {
         return editCategoryId != 0;
@@ -120,7 +122,10 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                             <h1>{t('edit-category')}</h1>
                         </div>
                         <form
-                            onSubmit={editCategoryFormik.handleSubmit}
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                setConfirmOpen(true);
+                            }}
                         >
                             <div className={styles.container}>
                                 <div className={styles.left}>
@@ -227,6 +232,16 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                 >
                     <CloseIcon fontSize='medium' />
                 </div>
+
+                <ConfirmationDialog 
+                    confirmAction={editCategoryFormik.submitForm}
+                    open={confirmOpen}
+                    setOpen={setConfirmOpen}
+                    dialogTitle={t('confirmation')}
+                    dialogText={t('confirm-category-edition-text')}
+                    confirmationButtonText={t('confirm')}
+                    cancelButtonText={t('cancel')}
+                />
 
             </Box>
         </Modal>

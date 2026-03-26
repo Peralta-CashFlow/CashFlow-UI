@@ -76,5 +76,8 @@
     "edit-category": "Edit Category",
     "edit-category-success": "Category edited successfully.",
     "category-without-tags": "There are no tags for this category.",
-    "tag-name-duplicated": "Tags can not have the same name."
+    "tag-name-duplicated": "Tags can not have the same name.",
+    "confirm": "Confirm",
+    "confirmation": "Confirmation",
+    "confirm-category-edition-text": "If you delete any tag, it will be removed from all related information."
 }
